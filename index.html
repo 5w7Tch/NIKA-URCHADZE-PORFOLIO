@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nika Urchadze | Full-Stack Engineer</title>
+    <link rel="icon" type="image/png" href="NU_white.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Theme Toggle -->
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+        <i class="fas fa-moon"></i>
+        <i class="fas fa-sun"></i>
+    </button>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#" class="nav-logo">
+                <img src="NU_white.png" alt="NU Logo" class="logo-img logo-dark">
+                <img src="NU_black.png" alt="NU Logo" class="logo-img logo-light">
+            </a>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#experience" class="nav-link">Experience</a></li>
+                <li><a href="#projects" class="nav-link">Projects</a></li>
+                <li><a href="#skills" class="nav-link">Skills</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <div class="hero-bg">
+            <div class="floating-shapes">
+                <div class="shape shape-1"></div>
+                <div class="shape shape-2"></div>
+                <div class="shape shape-3"></div>
+                <div class="shape shape-4"></div>
+                <div class="shape shape-5"></div>
+            </div>
+            <div class="code-snippets">
+                <div class="code-line code-line-1">const developer = "Nika";</div>
+                <div class="code-line code-line-2">function buildAwesome() {}</div>
+                <div class="code-line code-line-3">// TODO: Change the world</div>
+                <div class="code-line code-line-4">return &lt;Portfolio /&gt;</div>
+                <div class="code-line code-line-5">await createMagic();</div>
+            </div>
+            <div class="cursor-blob" id="cursorBlob"></div>
+        </div>
+        <div class="hero-content">
+            <div class="hero-text">
+                <p class="hero-greeting animate-in">Hello, World! I'm</p>
+                <h1 class="hero-title animate-in delay-1">
+                    Nika Urchadze
+                    <span class="title-accent">Full-Stack Engineer</span>
+                    <span class="title-sub">& Problem Solver</span>
+                </h1>
+                <p class="hero-description animate-in delay-2">
+                    Building web apps, AI tools, and scalable systems that make a difference.
+                </p>
+                <div class="hero-buttons animate-in delay-3">
+                    <a href="#projects" class="btn btn-primary">
+                        <span>See Projects</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                    <a href="#contact" class="btn btn-secondary">
+                        <span>Contact Me</span>
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="hero-visual animate-in delay-2">
+                <div class="terminal">
+                    <div class="terminal-header">
+                        <span class="terminal-dot red"></span>
+                        <span class="terminal-dot yellow"></span>
+                        <span class="terminal-dot green"></span>
+                        <span class="terminal-title">nika@portfolio ~ </span>
+                    </div>
+                    <div class="terminal-body">
+                        <div class="terminal-line">
+                            <span class="prompt">$</span>
+                            <span class="command typing" id="terminalText"></span>
+                            <span class="cursor">|</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <a href="#about" class="scroll-indicator">
+            <span>Scroll</span>
+            <i class="fas fa-chevron-down"></i>
+        </a>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="container">
+            <h2 class="section-title">
+                <span class="title-number">01.</span>
+                About Me
+            </h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p class="about-intro">
+                        I'm a <span class="highlight">full-stack engineer</span> and Computer Science student at Free University of Tbilisi, building everything from iOS apps to machine learning models to scalable SaaS platforms.
+                    </p>
+                    <p>
+                        My journey spans low-level systems programming (RISC-V, OS development, NAND to Tetris) to high-level full-stack development (React, FastAPI, PostgreSQL). I've built production systems that saved companies thousands of dollars and created ML models for Kaggle competitions.
+                    </p>
+                    <p>
+                        I thrive on understanding how things work from the ground up — whether that's implementing a CPU interpreter, building a CycleGAN from scratch, or architecting email management systems at scale.
+                    </p>
+                    <div class="about-badges">
+                        <div class="badge" data-tooltip="React, Swift UIKit, TypeScript">
+                            <i class="fas fa-laptop-code"></i>
+                            <span>Frontend & Mobile</span>
+                        </div>
+                        <div class="badge" data-tooltip="FastAPI, PostgreSQL, SQLAlchemy">
+                            <i class="fas fa-server"></i>
+                            <span>Backend Systems</span>
+                        </div>
+                        <div class="badge" data-tooltip="PyTorch, CycleGAN, Computer Vision">
+                            <i class="fas fa-brain"></i>
+                            <span>Machine Learning</span>
+                        </div>
+                        <div class="badge" data-tooltip="RISC-V, OS Dev, Low-level C">
+                            <i class="fas fa-microchip"></i>
+                            <span>Systems Programming</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-visual">
+                    <div class="avatar-container">
+                        <div class="avatar-ring"></div>
+                        <div class="avatar">
+                            <div class="avatar-placeholder">
+                                <i class="fas fa-code"></i>
+                            </div>
+                        </div>
+                        <div class="avatar-decorations">
+                            <span class="deco deco-1"><i class="fab fa-react"></i></span>
+                            <span class="deco deco-2"><i class="fab fa-python"></i></span>
+                            <span class="deco deco-3"><i class="fab fa-swift"></i></span>
+                            <span class="deco deco-4"><i class="fas fa-database"></i></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tech-marquee">
+                <div class="marquee-content">
+                    <span>Python</span>
+                    <span>•</span>
+                    <span>FastAPI</span>
+                    <span>•</span>
+                    <span>React</span>
+                    <span>•</span>
+                    <span>TypeScript</span>
+                    <span>•</span>
+                    <span>PostgreSQL</span>
+                    <span>•</span>
+                    <span>Swift</span>
+                    <span>•</span>
+                    <span>PyTorch</span>
+                    <span>•</span>
+                    <span>C</span>
+                    <span>•</span>
+                    <span>SQLAlchemy</span>
+                    <span>•</span>
+                    <span>Python</span>
+                    <span>•</span>
+                    <span>FastAPI</span>
+                    <span>•</span>
+                    <span>React</span>
+                    <span>•</span>
+                    <span>TypeScript</span>
+                    <span>•</span>
+                    <span>PostgreSQL</span>
+                    <span>•</span>
+                    <span>Swift</span>
+                    <span>•</span>
+                    <span>PyTorch</span>
+                    <span>•</span>
+                    <span>C</span>
+                    <span>•</span>
+                    <span>SQLAlchemy</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section class="experience" id="experience">
+        <div class="container">
+            <h2 class="section-title">
+                <span class="title-number">02.</span>
+                Experience
+            </h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-marker">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <div class="timeline-header">
+                            <h3 class="timeline-title">Full-Stack Developer</h3>
+                            <span class="timeline-company">Edumentors</span>
+                        </div>
+                        <span class="timeline-date">Jan 2026 - Present</span>
+                        <p class="timeline-description">
+                            Developing a full-stack educational platform connecting learners with top university students for private tutoring. Building AI-powered learning tools for personalized self-learning.
+                        </p>
+                        <div class="timeline-achievements">
+                            <span class="achievement"><i class="fas fa-check"></i> EdTech platform</span>
+                            <span class="achievement"><i class="fas fa-check"></i> AI learning tools</span>
+                            <span class="achievement"><i class="fas fa-check"></i> Full-stack development</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-marker">
+                        <i class="fas fa-briefcase"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <div class="timeline-header">
+                            <h3 class="timeline-title">Full-Stack Developer</h3>
+                            <span class="timeline-company">Stimuli Digital</span>
+                        </div>
+                        <span class="timeline-date">Mar 2025 - Jan 2026</span>
+                        <p class="timeline-description">
+                            Built production Python apps and SaaS platforms for cold email agencies. Created AI-powered workflows with LLM APIs for lead discovery. Developed OutFound platform unifying cold outreach operations.
+                        </p>
+                        <div class="timeline-achievements">
+                            <span class="achievement"><i class="fas fa-check"></i> SaaS email platform</span>
+                            <span class="achievement"><i class="fas fa-check"></i> AI lead qualification</span>
+                            <span class="achievement"><i class="fas fa-check"></i> Global agency clients</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-marker">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <div class="timeline-header">
+                            <h3 class="timeline-title">Lecturer Assistant - Design Patterns</h3>
+                            <span class="timeline-company">Free University of Tbilisi</span>
+                        </div>
+                        <span class="timeline-date">Sep 2025 - Jan 2026</span>
+                        <p class="timeline-description">
+                            Evaluated student assignments on design patterns and unit testing. Reviewed diverse codebases strengthening code quality assessment and architecture skills.
+                        </p>
+                        <div class="timeline-achievements">
+                            <span class="achievement"><i class="fas fa-check"></i> Design patterns</span>
+                            <span class="achievement"><i class="fas fa-check"></i> Code review</span>
+                            <span class="achievement"><i class="fas fa-check"></i> Unit testing</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-marker">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <div class="timeline-header">
+                            <h3 class="timeline-title">Lecturer Assistant - OOP (Java)</h3>
+                            <span class="timeline-company">Free University of Tbilisi</span>
+                        </div>
+                        <span class="timeline-date">Mar 2025 - Jul 2025</span>
+                        <p class="timeline-description">
+                            Assisted teaching Object-Oriented Programming in Java. Delivered lectures and practical sessions, graded assignments with automated tests for functional accuracy.
+                        </p>
+                        <div class="timeline-achievements">
+                            <span class="achievement"><i class="fas fa-check"></i> Java OOP</span>
+                            <span class="achievement"><i class="fas fa-check"></i> Automated testing</span>
+                            <span class="achievement"><i class="fas fa-check"></i> Student mentoring</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-marker">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <div class="timeline-header">
+                            <h3 class="timeline-title">Computer Science Student</h3>
+                            <span class="timeline-company">Free University of Tbilisi</span>
+                        </div>
+                        <span class="timeline-date">2022 - Present</span>
+                        <p class="timeline-description">
+                            Studying computer science with focus on systems programming, algorithms, machine learning, and full-stack development. Building real-world projects alongside coursework.
+                        </p>
+                        <div class="timeline-achievements">
+                            <span class="achievement"><i class="fas fa-check"></i> iOS Development</span>
+                            <span class="achievement"><i class="fas fa-check"></i> ML/AI courses</span>
+                            <span class="achievement"><i class="fas fa-check"></i> Systems programming</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="projects" id="projects">
+        <div class="container">
+            <h2 class="section-title">
+                <span class="title-number">03.</span>
+                Featured Projects
+            </h2>
+            <div class="project-filters">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="fullstack">Full-Stack</button>
+                <button class="filter-btn" data-filter="ai">AI/ML</button>
+                <button class="filter-btn" data-filter="mobile">Mobile</button>
+                <button class="filter-btn" data-filter="systems">Systems</button>
+            </div>
+            <div class="projects-grid">
+                <!-- Email SaaS Platform -->
+                <div class="project-card" data-category="fullstack">
+                    <div class="project-image">
+                        <div class="project-placeholder">
+                            <i class="fas fa-envelope-open-text"></i>
+                        </div>
+                        <div class="project-overlay">
+                            <div class="project-links">
+                                <span class="project-link private" title="Private Repository">
+                                    <i class="fas fa-lock"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Email SaaS Platform</h3>
+                        <p class="project-description">
+                            SaaS platform for purchasing, managing, monitoring, and health-tracking email accounts and domains at scale. Production system at Stimuli.digital.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-tag">FastAPI</span>
+                            <span class="tech-tag">React</span>
+                            <span class="tech-tag">PostgreSQL</span>
+                            <span class="tech-tag">ARQ</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CycleGAN Monet -->
+                <div class="project-card" data-category="ai">
+                    <div class="project-image">
+                        <div class="project-placeholder">
+                            <i class="fas fa-palette"></i>
+                        </div>
+                        <div class="project-overlay">
+                            <div class="project-links">
+                                <a href="https://www.kaggle.com/competitions/gan-getting-started" target="_blank" class="project-link" title="Kaggle Competition">
+                                    <i class="fas fa-external-link-alt"></i>
+                                </a>
+                                <a href="https://github.com/5w7Tch/monet-cyclegan" target="_blank" class="project-link" title="View Code">
+                                    <i class="fab fa-github"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">CycleGAN Monet Style Transfer</h3>
+                        <p class="project-description">
+                            Implemented CycleGAN from scratch for Kaggle competition. ResNet/U-Net generators, PatchGAN discriminator, LSGAN and Hinge loss experiments.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-tag">PyTorch</span>
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">WandB</span>
+                            <span class="tech-tag">Colab</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Data Gathering System -->
+                <div class="project-card" data-category="fullstack">
+                    <div class="project-image">
+                        <div class="project-placeholder">
+                            <i class="fas fa-search-dollar"></i>
+                        </div>
+                        <div class="project-overlay">
+                            <div class="project-links">
+                                <span class="project-link private" title="Private Repository">
+                                    <i class="fas fa-lock"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Lead Generation System</h3>
+                        <p class="project-description">
+                            Full-stack system for lead filtering, email enrichment and validation. Multi-step process with custom prompts. Saved 1000s of dollars for the company.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-tag">FastAPI</span>
+                            <span class="tech-tag">React</span>
+                            <span class="tech-tag">SQLAlchemy</span>
+                            <span class="tech-tag">ARQ</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quiz Platform -->
+                <div class="project-card" data-category="fullstack">
+                    <div class="project-image">
+                        <div class="project-placeholder">
+                            <i class="fas fa-question-circle"></i>
+                        </div>
+                        <div class="project-overlay">
+                            <div class="project-links">
+                                <a href="https://github.com/5w7Tch/PowerRangers" target="_blank" class="project-link" title="View Code">
+                                    <i class="fab fa-github"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Quiz Social Platform</h3>
+                        <p class="project-description">
+                            Social network for quizzes where users create and challenge each other. Built-in email system, 10+ question types, competitive leaderboards.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Java</span>
+                            <span class="tech-tag">JSP</span>
+                            <span class="tech-tag">MySQL</span>
+                            <span class="tech-tag">Servlets</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- iOS Weather App -->
+                <div class="project-card" data-category="mobile">
+                    <div class="project-image">
+                        <div class="project-placeholder">
+                            <i class="fas fa-cloud-sun"></i>
+                        </div>
+                        <div class="project-overlay">
+                            <div class="project-links">
+                                <a href="https://github.com/5w7Tch/IOS_Weather_APP" target="_blank" class="project-link" title="View Code">
+                                    <i class="fab fa-github"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">iOS Weather App</h3>
+                        <p class="project-description">
+                            Fully functional weather app with automatic location detection and manual city search. Final project for iOS development course.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Swift</span>
+                            <span class="tech-tag">UIKit</span>
+                            <span class="tech-tag">CoreLocation</span>
+                            <span class="tech-tag">REST API</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Book Portfolio -->
+                <div class="project-card" data-category="fullstack">
+                    <div class="project-image">
+                        <div class="project-placeholder">
+                            <i class="fas fa-book-open"></i>
+                        </div>
+                        <div class="project-overlay">
+                            <div class="project-links">
+                                <a href="https://salomeshengelaia.site/" target="_blank" class="project-link" title="View Demo">
+                                    <i class="fas fa-external-link-alt"></i>
+                                </a>
+                                <a href="https://github.com/5w7Tch/Salome-Shengelaia-portfolio" target="_blank" class="project-link" title="View Code">
+                                    <i class="fab fa-github"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Interactive Book Portfolio</h3>
+                        <p class="project-description">
+                            Portfolio displaying PDFs as interactive books with realistic page-flip animations, drag functionality, and optimized high-resolution loading.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-tag">JavaScript</span>
+                            <span class="tech-tag">PDF.js</span>
+                            <span class="tech-tag">CSS3</span>
+                            <span class="tech-tag">Canvas</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- NAND to Tetris -->
+                <div class="project-card" data-category="systems">
+                    <div class="project-image">
+                        <div class="project-placeholder">
+                            <i class="fas fa-microchip"></i>
+                        </div>
+                        <div class="project-overlay">
+                            <div class="project-links">
+                                <a href="https://github.com/5w7Tch/HLD_nand_final" target="_blank" class="project-link" title="View Code">
+                                    <i class="fab fa-github"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">NAND to Tetris HDL Parser</h3>
+                        <p class="project-description">
+                            Implemented entire computing system from NAND gates up. HDL parser for the final course project — building a computer from first principles.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-tag">HDL</span>
+                            <span class="tech-tag">Assembly</span>
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">Logic Gates</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RISC-V Interpreter -->
+                <div class="project-card" data-category="systems">
+                    <div class="project-image">
+                        <div class="project-placeholder">
+                            <i class="fas fa-terminal"></i>
+                        </div>
+                        <div class="project-overlay">
+                            <div class="project-links">
+                                <span class="project-link private" title="University Project">
+                                    <i class="fas fa-university"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">RISC-V Interpreter</h3>
+                        <p class="project-description">
+                            CPU interpreter simulating how processors interact with registers. Deep dive into how high-level code transforms after compilation.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">RISC-V</span>
+                            <span class="tech-tag">Assembly</span>
+                            <span class="tech-tag">CPU Arch</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Market API -->
+                <div class="project-card" data-category="fullstack">
+                    <div class="project-image">
+                        <div class="project-placeholder">
+                            <i class="fas fa-cash-register"></i>
+                        </div>
+                        <div class="project-overlay">
+                            <div class="project-links">
+                                <a href="https://github.com/5w7Tch/Market-API" target="_blank" class="project-link" title="View Code">
+                                    <i class="fab fa-github"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Market API Backend</h3>
+                        <p class="project-description">
+                            Backend system for cashiers with built-in sales management, discount application system, and real-time currency converter.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Java</span>
+                            <span class="tech-tag">Spring</span>
+                            <span class="tech-tag">REST API</span>
+                            <span class="tech-tag">SQL</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- OS Syscalls -->
+                <div class="project-card" data-category="systems">
+                    <div class="project-image">
+                        <div class="project-placeholder">
+                            <i class="fas fa-cogs"></i>
+                        </div>
+                        <div class="project-overlay">
+                            <div class="project-links">
+                                <span class="project-link private" title="University Project">
+                                    <i class="fas fa-university"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">RISC-V OS Development</h3>
+                        <p class="project-description">
+                            Operating system syscalls and enhancements for RISC-V architecture. Implemented optimizations including Copy-on-Write (COW).
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-tag">C</span>
+                            <span class="tech-tag">RISC-V</span>
+                            <span class="tech-tag">OS Design</span>
+                            <span class="tech-tag">Syscalls</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Email Tagging -->
+                <div class="project-card" data-category="fullstack">
+                    <div class="project-image">
+                        <div class="project-placeholder">
+                            <i class="fas fa-tags"></i>
+                        </div>
+                        <div class="project-overlay">
+                            <div class="project-links">
+                                <span class="project-link private" title="Private Repository">
+                                    <i class="fas fa-lock"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Email Tagging System</h3>
+                        <p class="project-description">
+                            System to organize massive email fleets with parallel tagging and campaign assignment. Reduced hours of work to seconds using SmartLead API.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-tag">FastAPI</span>
+                            <span class="tech-tag">React</span>
+                            <span class="tech-tag">PostgreSQL</span>
+                            <span class="tech-tag">SmartLead</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section class="skills" id="skills">
+        <div class="container">
+            <h2 class="section-title light">
+                <span class="title-number">04.</span>
+                Skills & Tech Stack
+            </h2>
+            <div class="skills-content">
+                <div class="skills-category">
+                    <h3 class="category-title">
+                        <i class="fas fa-laptop-code"></i>
+                        Frontend & Mobile
+                    </h3>
+                    <div class="skills-list">
+                        <div class="skill-item" data-skill="react">
+                            <div class="skill-icon">
+                                <i class="fab fa-react"></i>
+                            </div>
+                            <div class="skill-info">
+                                <span class="skill-name">React / JSX / TSX</span>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" data-progress="90"></div>
+                                </div>
+                            </div>
+                            <div class="skill-tooltip">
+                                <code>const App = () => &lt;Component /&gt;</code>
+                            </div>
+                        </div>
+                        <div class="skill-item" data-skill="swift">
+                            <div class="skill-icon">
+                                <i class="fab fa-swift"></i>
+                            </div>
+                            <div class="skill-info">
+                                <span class="skill-name">Swift / UIKit</span>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" data-progress="80"></div>
+                                </div>
+                            </div>
+                            <div class="skill-tooltip">
+                                <code>class ViewController: UIViewController</code>
+                            </div>
+                        </div>
+                        <div class="skill-item" data-skill="typescript">
+                            <div class="skill-icon">
+                                <i class="fab fa-js-square"></i>
+                            </div>
+                            <div class="skill-info">
+                                <span class="skill-name">TypeScript / JavaScript</span>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" data-progress="88"></div>
+                                </div>
+                            </div>
+                            <div class="skill-tooltip">
+                                <code>type Props = { data: T }</code>
+                            </div>
+                        </div>
+                        <div class="skill-item" data-skill="css">
+                            <div class="skill-icon">
+                                <i class="fab fa-css3-alt"></i>
+                            </div>
+                            <div class="skill-info">
+                                <span class="skill-name">CSS / HTML / Canvas</span>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" data-progress="85"></div>
+                                </div>
+                            </div>
+                            <div class="skill-tooltip">
+                                <code>.page { transform: rotateY(180deg); }</code>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="skills-category">
+                    <h3 class="category-title">
+                        <i class="fas fa-server"></i>
+                        Backend
+                    </h3>
+                    <div class="skills-list">
+                        <div class="skill-item" data-skill="python">
+                            <div class="skill-icon">
+                                <i class="fab fa-python"></i>
+                            </div>
+                            <div class="skill-info">
+                                <span class="skill-name">Python / FastAPI</span>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" data-progress="92"></div>
+                                </div>
+                            </div>
+                            <div class="skill-tooltip">
+                                <code>@app.get("/api/data")</code>
+                            </div>
+                        </div>
+                        <div class="skill-item" data-skill="java">
+                            <div class="skill-icon">
+                                <i class="fab fa-java"></i>
+                            </div>
+                            <div class="skill-info">
+                                <span class="skill-name">Java / Spring</span>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" data-progress="85"></div>
+                                </div>
+                            </div>
+                            <div class="skill-tooltip">
+                                <code>@RestController @RequestMapping</code>
+                            </div>
+                        </div>
+                        <div class="skill-item" data-skill="database">
+                            <div class="skill-icon">
+                                <i class="fas fa-database"></i>
+                            </div>
+                            <div class="skill-info">
+                                <span class="skill-name">PostgreSQL / SQLAlchemy</span>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" data-progress="88"></div>
+                                </div>
+                            </div>
+                            <div class="skill-tooltip">
+                                <code>session.query(Model).filter_by()</code>
+                            </div>
+                        </div>
+                        <div class="skill-item" data-skill="arq">
+                            <div class="skill-icon">
+                                <i class="fas fa-tasks"></i>
+                            </div>
+                            <div class="skill-info">
+                                <span class="skill-name">ARQ / Async Workers</span>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" data-progress="85"></div>
+                                </div>
+                            </div>
+                            <div class="skill-tooltip">
+                                <code>await arq_pool.enqueue_job()</code>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="skills-category">
+                    <h3 class="category-title">
+                        <i class="fas fa-microchip"></i>
+                        Systems & AI
+                    </h3>
+                    <div class="skills-list">
+                        <div class="skill-item" data-skill="c">
+                            <div class="skill-icon">
+                                <i class="fas fa-code"></i>
+                            </div>
+                            <div class="skill-info">
+                                <span class="skill-name">C / OS Development</span>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" data-progress="80"></div>
+                                </div>
+                            </div>
+                            <div class="skill-tooltip">
+                                <code>void* malloc(size_t size)</code>
+                            </div>
+                        </div>
+                        <div class="skill-item" data-skill="risc">
+                            <div class="skill-icon">
+                                <i class="fas fa-memory"></i>
+                            </div>
+                            <div class="skill-info">
+                                <span class="skill-name">RISC-V / Assembly</span>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" data-progress="75"></div>
+                                </div>
+                            </div>
+                            <div class="skill-tooltip">
+                                <code>addi x1, x0, 10</code>
+                            </div>
+                        </div>
+                        <div class="skill-item" data-skill="pytorch">
+                            <div class="skill-icon">
+                                <i class="fas fa-brain"></i>
+                            </div>
+                            <div class="skill-info">
+                                <span class="skill-name">PyTorch / ML</span>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" data-progress="78"></div>
+                                </div>
+                            </div>
+                            <div class="skill-tooltip">
+                                <code>loss.backward(); optimizer.step()</code>
+                            </div>
+                        </div>
+                        <div class="skill-item" data-skill="git">
+                            <div class="skill-icon">
+                                <i class="fab fa-git-alt"></i>
+                            </div>
+                            <div class="skill-info">
+                                <span class="skill-name">Git / Linux</span>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" data-progress="90"></div>
+                                </div>
+                            </div>
+                            <div class="skill-tooltip">
+                                <code>git push magic main</code>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="floating-tech-badges">
+                <span class="float-badge"><i class="fab fa-react"></i></span>
+                <span class="float-badge"><i class="fab fa-node-js"></i></span>
+                <span class="float-badge"><i class="fab fa-python"></i></span>
+                <span class="float-badge"><i class="fab fa-docker"></i></span>
+                <span class="float-badge"><i class="fab fa-aws"></i></span>
+                <span class="float-badge"><i class="fas fa-database"></i></span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <h2 class="section-title light">
+                <span class="title-number">05.</span>
+                Get In Touch
+            </h2>
+            <div class="contact-simple">
+                <p class="contact-intro">
+                    I'm currently open to new opportunities and interesting projects. Whether you have a question, want to collaborate, or just want to say hi — feel free to reach out!
+                </p>
+                <div class="contact-cards">
+                    <a href="mailto:nurch22@freeuni.edu.ge" class="contact-card">
+                        <div class="contact-card-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <h3>Email</h3>
+                        <span>nurch22@freeuni.edu.ge</span>
+                    </a>
+                    <a href="https://github.com/5w7Tch" target="_blank" class="contact-card">
+                        <div class="contact-card-icon">
+                            <i class="fab fa-github"></i>
+                        </div>
+                        <h3>GitHub</h3>
+                        <span>@5w7Tch</span>
+                    </a>
+                    <a href="https://www.linkedin.com/in/nika-urchadze-292358293/" target="_blank" class="contact-card">
+                        <div class="contact-card-icon">
+                            <i class="fab fa-linkedin"></i>
+                        </div>
+                        <h3>LinkedIn</h3>
+                        <span>nika-urchadze</span>
+                    </a>
+                </div>
+                <a href="mailto:nurch22@freeuni.edu.ge" class="btn btn-primary btn-contact">
+                    <span>Say Hello</span>
+                    <i class="fas fa-paper-plane"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p class="footer-text">
+                    Designed & Built by <span class="accent">Nika Urchadze</span>
+                </p>
+                <div class="footer-socials">
+                    <a href="https://github.com/5w7Tch" target="_blank" aria-label="GitHub">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/nika-urchadze-292358293/" target="_blank" aria-label="LinkedIn">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                    <a href="mailto:nurch22@freeuni.edu.ge" aria-label="Email">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
