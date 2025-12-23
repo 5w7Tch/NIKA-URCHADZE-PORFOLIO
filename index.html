@@ -10,6 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </head>
 <body>
     <!-- Theme Toggle -->
@@ -317,335 +318,29 @@
         </div>
     </section>
 
-    <!-- Projects Section -->
-    <section class="projects" id="projects">
-        <div class="container">
+    <!-- Projects Section - 3D Sphere -->
+    <section class="projects-sphere" id="projects">
+        <!-- Navigation overlay that appears when scrolled within sphere section -->
+        <div class="sphere-nav-overlay" id="sphereNavOverlay">
+            <div class="sphere-nav-logo" id="sphereNavLogo">
+                <img src="NU_white.png" alt="NU Logo" class="logo-img logo-dark">
+                <img src="NU_black.png" alt="NU Logo" class="logo-img logo-light">
+            </div>
+            <button class="sphere-theme-toggle" id="sphereThemeToggle">
+                <i class="fas fa-moon"></i>
+                <i class="fas fa-sun"></i>
+            </button>
+        </div>
+        <div class="projects-sphere-header" id="projectsSphereHeader">
             <h2 class="section-title">
                 <span class="title-number">03.</span>
                 Featured Projects
             </h2>
-            <div class="project-filters">
-                <button class="filter-btn active" data-filter="all">All</button>
-                <button class="filter-btn" data-filter="fullstack">Full-Stack</button>
-                <button class="filter-btn" data-filter="ai">AI/ML</button>
-                <button class="filter-btn" data-filter="mobile">Mobile</button>
-                <button class="filter-btn" data-filter="systems">Systems</button>
-            </div>
-            <div class="projects-grid">
-                <!-- Email SaaS Platform -->
-                <div class="project-card" data-category="fullstack">
-                    <div class="project-image">
-                        <div class="project-placeholder">
-                            <i class="fas fa-envelope-open-text"></i>
-                        </div>
-                        <div class="project-overlay">
-                            <div class="project-links">
-                                <span class="project-link private" title="Private Repository">
-                                    <i class="fas fa-lock"></i>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="project-content">
-                        <h3 class="project-title">Email SaaS Platform</h3>
-                        <p class="project-description">
-                            SaaS platform for purchasing, managing, monitoring, and health-tracking email accounts and domains at scale. Production system at Stimuli.digital.
-                        </p>
-                        <div class="project-tech">
-                            <span class="tech-tag">FastAPI</span>
-                            <span class="tech-tag">React</span>
-                            <span class="tech-tag">PostgreSQL</span>
-                            <span class="tech-tag">ARQ</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- CycleGAN Monet -->
-                <div class="project-card" data-category="ai">
-                    <div class="project-image">
-                        <div class="project-placeholder">
-                            <i class="fas fa-palette"></i>
-                        </div>
-                        <div class="project-overlay">
-                            <div class="project-links">
-                                <a href="https://www.kaggle.com/competitions/gan-getting-started" target="_blank" class="project-link" title="Kaggle Competition">
-                                    <i class="fas fa-external-link-alt"></i>
-                                </a>
-                                <a href="https://github.com/5w7Tch/monet-cyclegan" target="_blank" class="project-link" title="View Code">
-                                    <i class="fab fa-github"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="project-content">
-                        <h3 class="project-title">CycleGAN Monet Style Transfer</h3>
-                        <p class="project-description">
-                            Implemented CycleGAN from scratch for Kaggle competition. ResNet/U-Net generators, PatchGAN discriminator, LSGAN and Hinge loss experiments.
-                        </p>
-                        <div class="project-tech">
-                            <span class="tech-tag">PyTorch</span>
-                            <span class="tech-tag">Python</span>
-                            <span class="tech-tag">WandB</span>
-                            <span class="tech-tag">Colab</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Data Gathering System -->
-                <div class="project-card" data-category="fullstack">
-                    <div class="project-image">
-                        <div class="project-placeholder">
-                            <i class="fas fa-search-dollar"></i>
-                        </div>
-                        <div class="project-overlay">
-                            <div class="project-links">
-                                <span class="project-link private" title="Private Repository">
-                                    <i class="fas fa-lock"></i>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="project-content">
-                        <h3 class="project-title">Lead Generation System</h3>
-                        <p class="project-description">
-                            Full-stack system for lead filtering, email enrichment and validation. Multi-step process with custom prompts. Saved 1000s of dollars for the company.
-                        </p>
-                        <div class="project-tech">
-                            <span class="tech-tag">FastAPI</span>
-                            <span class="tech-tag">React</span>
-                            <span class="tech-tag">SQLAlchemy</span>
-                            <span class="tech-tag">ARQ</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Quiz Platform -->
-                <div class="project-card" data-category="fullstack">
-                    <div class="project-image">
-                        <div class="project-placeholder">
-                            <i class="fas fa-question-circle"></i>
-                        </div>
-                        <div class="project-overlay">
-                            <div class="project-links">
-                                <a href="https://github.com/5w7Tch/PowerRangers" target="_blank" class="project-link" title="View Code">
-                                    <i class="fab fa-github"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="project-content">
-                        <h3 class="project-title">Quiz Social Platform</h3>
-                        <p class="project-description">
-                            Social network for quizzes where users create and challenge each other. Built-in email system, 10+ question types, competitive leaderboards.
-                        </p>
-                        <div class="project-tech">
-                            <span class="tech-tag">Java</span>
-                            <span class="tech-tag">JSP</span>
-                            <span class="tech-tag">MySQL</span>
-                            <span class="tech-tag">Servlets</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- iOS Weather App -->
-                <div class="project-card" data-category="mobile">
-                    <div class="project-image">
-                        <div class="project-placeholder">
-                            <i class="fas fa-cloud-sun"></i>
-                        </div>
-                        <div class="project-overlay">
-                            <div class="project-links">
-                                <a href="https://github.com/5w7Tch/IOS_Weather_APP" target="_blank" class="project-link" title="View Code">
-                                    <i class="fab fa-github"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="project-content">
-                        <h3 class="project-title">iOS Weather App</h3>
-                        <p class="project-description">
-                            Fully functional weather app with automatic location detection and manual city search. Final project for iOS development course.
-                        </p>
-                        <div class="project-tech">
-                            <span class="tech-tag">Swift</span>
-                            <span class="tech-tag">UIKit</span>
-                            <span class="tech-tag">CoreLocation</span>
-                            <span class="tech-tag">REST API</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Book Portfolio -->
-                <div class="project-card" data-category="fullstack">
-                    <div class="project-image">
-                        <div class="project-placeholder">
-                            <i class="fas fa-book-open"></i>
-                        </div>
-                        <div class="project-overlay">
-                            <div class="project-links">
-                                <a href="https://salomeshengelaia.site/" target="_blank" class="project-link" title="View Demo">
-                                    <i class="fas fa-external-link-alt"></i>
-                                </a>
-                                <a href="https://github.com/5w7Tch/Salome-Shengelaia-portfolio" target="_blank" class="project-link" title="View Code">
-                                    <i class="fab fa-github"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="project-content">
-                        <h3 class="project-title">Interactive Book Portfolio</h3>
-                        <p class="project-description">
-                            Portfolio displaying PDFs as interactive books with realistic page-flip animations, drag functionality, and optimized high-resolution loading.
-                        </p>
-                        <div class="project-tech">
-                            <span class="tech-tag">JavaScript</span>
-                            <span class="tech-tag">PDF.js</span>
-                            <span class="tech-tag">CSS3</span>
-                            <span class="tech-tag">Canvas</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- NAND to Tetris -->
-                <div class="project-card" data-category="systems">
-                    <div class="project-image">
-                        <div class="project-placeholder">
-                            <i class="fas fa-microchip"></i>
-                        </div>
-                        <div class="project-overlay">
-                            <div class="project-links">
-                                <a href="https://github.com/5w7Tch/HLD_nand_final" target="_blank" class="project-link" title="View Code">
-                                    <i class="fab fa-github"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="project-content">
-                        <h3 class="project-title">NAND to Tetris HDL Parser</h3>
-                        <p class="project-description">
-                            Implemented entire computing system from NAND gates up. HDL parser for the final course project — building a computer from first principles.
-                        </p>
-                        <div class="project-tech">
-                            <span class="tech-tag">HDL</span>
-                            <span class="tech-tag">Assembly</span>
-                            <span class="tech-tag">Python</span>
-                            <span class="tech-tag">Logic Gates</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- RISC-V Interpreter -->
-                <div class="project-card" data-category="systems">
-                    <div class="project-image">
-                        <div class="project-placeholder">
-                            <i class="fas fa-terminal"></i>
-                        </div>
-                        <div class="project-overlay">
-                            <div class="project-links">
-                                <span class="project-link private" title="University Project">
-                                    <i class="fas fa-university"></i>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="project-content">
-                        <h3 class="project-title">RISC-V Interpreter</h3>
-                        <p class="project-description">
-                            CPU interpreter simulating how processors interact with registers. Deep dive into how high-level code transforms after compilation.
-                        </p>
-                        <div class="project-tech">
-                            <span class="tech-tag">Python</span>
-                            <span class="tech-tag">RISC-V</span>
-                            <span class="tech-tag">Assembly</span>
-                            <span class="tech-tag">CPU Arch</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Market API -->
-                <div class="project-card" data-category="fullstack">
-                    <div class="project-image">
-                        <div class="project-placeholder">
-                            <i class="fas fa-cash-register"></i>
-                        </div>
-                        <div class="project-overlay">
-                            <div class="project-links">
-                                <a href="https://github.com/5w7Tch/Market-API" target="_blank" class="project-link" title="View Code">
-                                    <i class="fab fa-github"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="project-content">
-                        <h3 class="project-title">Market API Backend</h3>
-                        <p class="project-description">
-                            Backend system for cashiers with built-in sales management, discount application system, and real-time currency converter.
-                        </p>
-                        <div class="project-tech">
-                            <span class="tech-tag">Java</span>
-                            <span class="tech-tag">Spring</span>
-                            <span class="tech-tag">REST API</span>
-                            <span class="tech-tag">SQL</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- OS Syscalls -->
-                <div class="project-card" data-category="systems">
-                    <div class="project-image">
-                        <div class="project-placeholder">
-                            <i class="fas fa-cogs"></i>
-                        </div>
-                        <div class="project-overlay">
-                            <div class="project-links">
-                                <span class="project-link private" title="University Project">
-                                    <i class="fas fa-university"></i>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="project-content">
-                        <h3 class="project-title">RISC-V OS Development</h3>
-                        <p class="project-description">
-                            Operating system syscalls and enhancements for RISC-V architecture. Implemented optimizations including Copy-on-Write (COW).
-                        </p>
-                        <div class="project-tech">
-                            <span class="tech-tag">C</span>
-                            <span class="tech-tag">RISC-V</span>
-                            <span class="tech-tag">OS Design</span>
-                            <span class="tech-tag">Syscalls</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Email Tagging -->
-                <div class="project-card" data-category="fullstack">
-                    <div class="project-image">
-                        <div class="project-placeholder">
-                            <i class="fas fa-tags"></i>
-                        </div>
-                        <div class="project-overlay">
-                            <div class="project-links">
-                                <span class="project-link private" title="Private Repository">
-                                    <i class="fas fa-lock"></i>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="project-content">
-                        <h3 class="project-title">Email Tagging System</h3>
-                        <p class="project-description">
-                            System to organize massive email fleets with parallel tagging and campaign assignment. Reduced hours of work to seconds using SmartLead API.
-                        </p>
-                        <div class="project-tech">
-                            <span class="tech-tag">FastAPI</span>
-                            <span class="tech-tag">React</span>
-                            <span class="tech-tag">PostgreSQL</span>
-                            <span class="tech-tag">SmartLead</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        </div>
+        <div class="sphere-container">
+            <div id="sphere-canvas-container"></div>
+            <div id="sphereProjectCards"></div>
+            <div class="sphere-project-indicator" id="sphereProjectIndicator"></div>
         </div>
     </section>
 
