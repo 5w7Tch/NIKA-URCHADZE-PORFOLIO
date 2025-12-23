@@ -586,9 +586,27 @@ function initProjectsSphere() {
         const isDarkMode = document.documentElement.getAttribute('data-theme') !== 'light';
         scene.background = new THREE.Color(isDarkMode ? 0x0a0a0a : 0xfafafa);
 
-        // Camera
-        camera = new THREE.PerspectiveCamera(60, container.clientWidth / container.clientHeight, 0.1, 1000);
-        camera.position.z = 6;
+        // Camera - adjust for mobile
+        const isMobile = window.innerWidth <= 768;
+        const isSmallMobile = window.innerWidth <= 480;
+        const isLandscape = window.innerHeight < 500 && window.innerWidth > window.innerHeight;
+
+        let cameraZ = 6;
+        let fov = 60;
+
+        if (isSmallMobile) {
+            cameraZ = 8;
+            fov = 65;
+        } else if (isMobile) {
+            cameraZ = 7.5;
+            fov = 62;
+        } else if (isLandscape) {
+            cameraZ = 7;
+            fov = 55;
+        }
+
+        camera = new THREE.PerspectiveCamera(fov, container.clientWidth / container.clientHeight, 0.1, 1000);
+        camera.position.z = cameraZ;
 
         // Renderer
         renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
@@ -616,6 +634,11 @@ function initProjectsSphere() {
         container.addEventListener('mousedown', onMouseDown);
         container.addEventListener('mouseup', onMouseUp);
         container.addEventListener('mouseleave', onMouseUp);
+
+        // Touch events for mobile
+        container.addEventListener('touchstart', onTouchStart, { passive: false });
+        container.addEventListener('touchmove', onTouchMove, { passive: false });
+        container.addEventListener('touchend', onTouchEnd);
 
         // Intersection observer for performance
         const observer = new IntersectionObserver((entries) => {
@@ -949,8 +972,22 @@ function initProjectsSphere() {
             const cardRotateY = Math.atan2(point.x, point.z) * (180 / Math.PI) * 0.2;
             const cardRotateX = Math.atan2(-point.y, Math.sqrt(point.x * point.x + point.z * point.z)) * (180 / Math.PI) * 0.15;
 
-            card.style.left = (x - 90) + 'px';
-            card.style.top = (y - 70) + 'px';
+            // Adjust card offset based on screen size
+            const isMobile = window.innerWidth <= 768;
+            const isSmallMobile = window.innerWidth <= 480;
+            let cardOffsetX = 90;
+            let cardOffsetY = 70;
+
+            if (isSmallMobile) {
+                cardOffsetX = 60;
+                cardOffsetY = 50;
+            } else if (isMobile) {
+                cardOffsetX = 70;
+                cardOffsetY = 55;
+            }
+
+            card.style.left = (x - cardOffsetX) + 'px';
+            card.style.top = (y - cardOffsetY) + 'px';
             card.style.opacity = opacity;
             card.style.transform = `scale(${scale}) rotateY(${cardRotateY}deg) rotateX(${cardRotateX}deg)`;
             card.style.zIndex = Math.floor((point.z + 5) * 20);
@@ -971,6 +1008,27 @@ function initProjectsSphere() {
     }
 
     function onWindowResize() {
+        // Adjust camera for mobile on resize
+        const isMobile = window.innerWidth <= 768;
+        const isSmallMobile = window.innerWidth <= 480;
+        const isLandscape = window.innerHeight < 500 && window.innerWidth > window.innerHeight;
+
+        let cameraZ = 6;
+        let fov = 60;
+
+        if (isSmallMobile) {
+            cameraZ = 8;
+            fov = 65;
+        } else if (isMobile) {
+            cameraZ = 7.5;
+            fov = 62;
+        } else if (isLandscape) {
+            cameraZ = 7;
+            fov = 55;
+        }
+
+        camera.fov = fov;
+        camera.position.z = cameraZ;
         camera.aspect = container.clientWidth / container.clientHeight;
         camera.updateProjectionMatrix();
         renderer.setSize(container.clientWidth, container.clientHeight);
@@ -1005,6 +1063,41 @@ function initProjectsSphere() {
         setTimeout(() => autoRotate = true, 2000);
     }
 
+    // Touch event handlers for mobile
+    let touchStartX = 0, touchStartY = 0;
+
+    function onTouchStart(event) {
+        if (event.touches.length === 1) {
+            event.preventDefault();
+            isMouseDown = true;
+            autoRotate = false;
+            touchStartX = event.touches[0].clientX;
+            touchStartY = event.touches[0].clientY;
+        }
+    }
+
+    function onTouchMove(event) {
+        if (event.touches.length === 1 && isMouseDown) {
+            event.preventDefault();
+            const touchX = event.touches[0].clientX;
+            const touchY = event.touches[0].clientY;
+
+            const deltaX = touchX - touchStartX;
+            const deltaY = touchY - touchStartY;
+
+            targetRotationY += deltaX * 0.008;
+            targetRotationX += deltaY * 0.005;
+            targetRotationX = Math.max(-Math.PI / 3, Math.min(Math.PI / 3, targetRotationX));
+
+            touchStartX = touchX;
+            touchStartY = touchY;
+        }
+    }
+
+    function onTouchEnd() {
+        isMouseDown = false;
+        setTimeout(() => autoRotate = true, 2000);
+    }
 
     function animate() {
         requestAnimationFrame(animate);

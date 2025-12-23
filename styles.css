@@ -2105,34 +2105,238 @@ button {
     box-shadow: 0 0 10px var(--accent-glow);
 }
 
-/* Sphere responsive */
-@media (max-width: 768px) {
-    .projects-sphere {
-        min-height: 80vh;
-    }
-
-    .projects-sphere-header {
-        padding: 20px;
-    }
-
+/* Sphere responsive - Tablet */
+@media (max-width: 1024px) {
     .sphere-project-card {
-        width: 150px;
+        width: 160px;
         padding: 12px;
     }
 
     .sphere-project-card h3 {
-        font-size: 0.8rem;
+        font-size: 0.85rem;
     }
 
     .sphere-project-card p {
         font-size: 0.7rem;
+        margin-bottom: 8px;
+    }
+
+    .sphere-indicator-title {
+        max-width: 120px;
+        font-size: 0.65rem;
+    }
+}
+
+/* Sphere responsive - Mobile */
+@media (max-width: 768px) {
+    .projects-sphere {
+        min-height: 100vh;
+        min-height: 100dvh;
+    }
+
+    .projects-sphere-header {
+        padding: 15px;
+        text-align: center;
+    }
+
+    .projects-sphere-header .section-title {
+        font-size: 1.5rem;
+    }
+
+    .sphere-container {
+        height: 100vh;
+        height: 100dvh;
+    }
+
+    .sphere-project-card {
+        width: 140px;
+        padding: 10px;
+        border-radius: 8px;
+    }
+
+    .sphere-project-card h3 {
+        font-size: 0.75rem;
+        margin-bottom: 4px;
+    }
+
+    .sphere-project-card p {
+        font-size: 0.65rem;
+        line-height: 1.3;
+        margin-bottom: 8px;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .sphere-card-header {
+        margin-bottom: 8px;
+    }
+
+    .sphere-card-icon {
+        width: 28px;
+        height: 28px;
+        font-size: 0.9rem;
+    }
+
+    .sphere-card-links {
+        gap: 4px;
+    }
+
+    .sphere-card-links a,
+    .sphere-card-links span {
+        width: 24px;
+        height: 24px;
+        font-size: 0.65rem;
+    }
+
+    .sphere-card-tags {
+        gap: 4px;
+    }
+
+    .sphere-card-tag {
+        font-size: 0.5rem;
+        padding: 2px 6px;
     }
 
     .sphere-project-indicator {
-        right: 15px;
+        right: 10px;
+        gap: 8px;
     }
 
     .sphere-indicator-title {
         display: none;
+    }
+
+    .sphere-indicator-dot {
+        width: 8px;
+        height: 8px;
+    }
+
+    .sphere-nav-overlay {
+        padding: 15px 20px;
+    }
+
+    .sphere-nav-logo img {
+        height: 40px;
+    }
+
+    .sphere-theme-toggle {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+    }
+}
+
+/* Sphere responsive - Small Mobile */
+@media (max-width: 480px) {
+    .projects-sphere-header {
+        padding: 12px;
+    }
+
+    .projects-sphere-header .section-title {
+        font-size: 1.2rem;
+    }
+
+    .sphere-project-card {
+        width: 120px;
+        padding: 8px;
+    }
+
+    .sphere-project-card h3 {
+        font-size: 0.7rem;
+    }
+
+    .sphere-project-card p {
+        font-size: 0.6rem;
+        -webkit-line-clamp: 2;
+    }
+
+    .sphere-card-icon {
+        width: 24px;
+        height: 24px;
+        font-size: 0.8rem;
+    }
+
+    .sphere-card-links a,
+    .sphere-card-links span {
+        width: 22px;
+        height: 22px;
+        font-size: 0.6rem;
+    }
+
+    .sphere-card-tag {
+        font-size: 0.45rem;
+        padding: 2px 4px;
+    }
+
+    .sphere-project-indicator {
+        right: 8px;
+        gap: 6px;
+    }
+
+    .sphere-indicator-dot {
+        width: 6px;
+        height: 6px;
+        border-width: 1px;
+    }
+
+    .sphere-nav-overlay {
+        padding: 10px 15px;
+    }
+
+    .sphere-nav-logo img {
+        height: 35px;
+    }
+
+    .sphere-theme-toggle {
+        width: 36px;
+        height: 36px;
+        font-size: 0.9rem;
+    }
+}
+
+/* Landscape mobile - reduce sphere height */
+@media (max-height: 500px) and (orientation: landscape) {
+    .projects-sphere {
+        min-height: 100vh;
+    }
+
+    .sphere-container {
+        height: 100vh;
+    }
+
+    .sphere-project-card {
+        width: 130px;
+        padding: 8px;
+    }
+
+    .sphere-project-card h3 {
+        font-size: 0.7rem;
+    }
+
+    .sphere-project-card p {
+        display: none;
+    }
+
+    .sphere-card-tags {
+        display: none;
+    }
+
+    .projects-sphere-header {
+        padding: 10px;
+    }
+
+    .projects-sphere-header .section-title {
+        font-size: 1rem;
+    }
+
+    .sphere-project-indicator {
+        gap: 4px;
+    }
+
+    .sphere-indicator-dot {
+        width: 6px;
+        height: 6px;
     }
 }
