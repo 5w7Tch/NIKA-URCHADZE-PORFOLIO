@@ -352,6 +352,9 @@ a.project-list-item:focus-visible {
 
 .term-body {
   padding: 1rem 1.1rem 1.2rem;
+  max-height: min(60vh, 32rem);
+  overflow-y: auto;
+  scrollbar-width: thin;
 }
 
 .term-body .prompt {

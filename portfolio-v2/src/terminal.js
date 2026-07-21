@@ -29,6 +29,7 @@ function open(el) {
   bodyEl.replaceChildren();
 
   if (isExperience) bodyEl.append(line('whoami', `${role} @ ${name} (${dates})`));
+  else if (dates) bodyEl.append(line('cat timeline.txt', dates));
   bodyEl.append(line('cat about.txt', desc || name));
   if (tags) bodyEl.append(line('ls stack/', tags.split(',').map((t) => t.trim()).join('   ')));
 
