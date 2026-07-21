@@ -275,6 +275,7 @@ export function createFaceScene(canvas, initialTheme) {
   document.body.append(listEl);
 
   const experienceEl = document.getElementById('experience');
+  const scrollHintEl = document.getElementById('scroll-hint');
   const anchors = labels.map((_, i) => {
     const y = labels.length === 1 ? 0 : 1 - (i / (labels.length - 1)) * 2;
     const r = Math.sqrt(Math.max(0, 1 - y * y * 0.7));
@@ -467,6 +468,11 @@ export function createFaceScene(canvas, initialTheme) {
       spin.x = Math.max(-1.1, Math.min(1.1, spin.x + spin.vx * dt));
     }
     sphereObj.group.rotation.set(spin.x, spin.y, 0);
+
+    // Scroll hint: appears once the face has assembled, gone once scrolling.
+    scrollHintEl.style.opacity = (
+      0.45 * smoothstep(0.75, 1, assemble) * (1 - smoothstep(0.02, 0.15, s))
+    ).toFixed(3);
 
     // -- project labels track their 3D anchors --
     const labelsOn = smoothstep(0.78, 1, s);

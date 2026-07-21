@@ -208,6 +208,40 @@ a.project-list-item:focus-visible {
   outline: none;
 }
 
+/* Bouncing hint at the bottom of the face view: there's more below. */
+#scroll-hint {
+  position: fixed;
+  bottom: 1.4rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 5;
+  color: var(--fg);
+  opacity: 0;
+  pointer-events: none;
+}
+
+#scroll-hint svg {
+  width: 26px;
+  height: 26px;
+  animation: hint-bounce 1.7s ease-in-out infinite;
+}
+
+@keyframes hint-bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(8px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #scroll-hint svg {
+    animation: none;
+  }
+}
+
 /* Terminal window describing a clicked project. */
 #terminal {
   position: fixed;
