@@ -95,6 +95,88 @@ const LINE_FRAGMENT = /* glsl */ `
   }
 `;
 
+// Hover projection: the project name is projected up from a sphere vertex.
+// Four edge lines form a pyramid to the label's corners; faint rays fill
+// the inside of the pyramid like projector light.
+const BEAM_EDGES = 4;
+const BEAM_INNER_RAYS = 9;
+
+const EMITTER_VERTEX = /* glsl */ `
+  uniform float uPixelRatio;
+
+  void main() {
+    vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
+    gl_Position = projectionMatrix * mvPosition;
+    gl_PointSize = 9.0 * uPixelRatio / -mvPosition.z;
+  }
+`;
+
+const EMITTER_FRAGMENT = /* glsl */ `
+  uniform vec3 uColor;
+  uniform float uProgress;
+
+  void main() {
+    // Square emitter chip at the pyramid's apex.
+    gl_FragColor = vec4(uColor, uProgress);
+  }
+`;
+
+const BEAM_VERTEX = /* glsl */ `
+  attribute float aT;
+  attribute float aEdge;
+  attribute float aSeed;
+
+  varying float vT;
+  varying float vEdge;
+  varying float vSeed;
+
+  void main() {
+    vT = aT;
+    vEdge = aEdge;
+    vSeed = aSeed;
+    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+  }
+`;
+
+const BEAM_FRAGMENT = /* glsl */ `
+  uniform vec3 uColor;
+  uniform float uTime;
+  uniform float uProgress;
+
+  varying float vT;
+  varying float vEdge;
+  varying float vSeed;
+
+  void main() {
+    // The beam extends upward from the sphere as the hover eases in.
+    float reach = smoothstep(vT, vT + 0.25, uProgress * 1.2);
+    // Edges are solid and visible; inner rays are semi-visible and flicker.
+    float base = mix(0.3, 0.85, vEdge);
+    float flicker = mix(0.72 + 0.28 * sin(uTime * 7.0 + vSeed * 20.0), 1.0, vEdge);
+    float a = base * (1.0 - 0.22 * vT) * reach * flicker;
+    gl_FragColor = vec4(uColor, a * uProgress);
+  }
+`;
+
+// When the tendril docks, the target vertex's own wireframe edges light up —
+// the network acknowledges the connection.
+const CONN_EDGE_VERTEX = /* glsl */ `
+  void main() {
+    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+  }
+`;
+
+const CONN_EDGE_FRAGMENT = /* glsl */ `
+  uniform vec3 uColor;
+  uniform float uTime;
+  uniform float uProgress;
+
+  void main() {
+    float glow = smoothstep(0.72, 1.0, uProgress) * (0.7 + 0.3 * sin(uTime * 6.0));
+    gl_FragColor = vec4(uColor, 0.85 * glow);
+  }
+`;
+
 function themeColor(theme) {
   return new THREE.Color(theme === 'dark' ? 0xffffff : 0x000000);
 }
@@ -264,6 +346,161 @@ export function createFaceScene(canvas, initialTheme) {
 
   const projectsEl = document.getElementById('projects');
   const labels = [...projectsEl.querySelectorAll('.project')];
+
+  // -- hover projection: sphere vertex -> label -------------------------------
+  const connUniforms = {
+    uColor: shared.uColor,
+    uTime: shared.uTime,
+    uPixelRatio: shared.uPixelRatio,
+    uProgress: { value: 0 },
+  };
+
+  // Glow overlay for the docked vertex's incident edges.
+  const MAX_GLOW_EDGES = 12;
+  const glowGeo = new THREE.BufferGeometry();
+  const glowPos = new THREE.BufferAttribute(new Float32Array(MAX_GLOW_EDGES * 6), 3);
+  glowGeo.setAttribute('position', glowPos);
+  const glowEdges = new THREE.LineSegments(
+    glowGeo,
+    new THREE.ShaderMaterial({
+      uniforms: connUniforms,
+      vertexShader: CONN_EDGE_VERTEX,
+      fragmentShader: CONN_EDGE_FRAGMENT,
+      transparent: true,
+      depthWrite: false,
+    })
+  );
+  glowEdges.frustumCulled = false;
+  sphereObj.group.add(glowEdges);
+
+  // The projection: 4 pyramid edge lines + inner rays (sphere -> label).
+  const beamSegments = BEAM_EDGES + BEAM_INNER_RAYS;
+  const beamGeo = new THREE.BufferGeometry();
+  const beamPos = new THREE.BufferAttribute(new Float32Array(beamSegments * 6), 3);
+  const beamT = new Float32Array(beamSegments * 2);
+  const beamEdge = new Float32Array(beamSegments * 2);
+  const beamSeed = new Float32Array(beamSegments * 2);
+  for (let i = 0; i < beamSegments; i++) {
+    beamT[i * 2] = 0;
+    beamT[i * 2 + 1] = 1;
+    const isEdge = i < BEAM_EDGES ? 1 : 0;
+    beamEdge[i * 2] = isEdge;
+    beamEdge[i * 2 + 1] = isEdge;
+    beamSeed[i * 2] = i * 0.37;
+    beamSeed[i * 2 + 1] = i * 0.37;
+  }
+  beamGeo.setAttribute('position', beamPos);
+  beamGeo.setAttribute('aT', new THREE.BufferAttribute(beamT, 1));
+  beamGeo.setAttribute('aEdge', new THREE.BufferAttribute(beamEdge, 1));
+  beamGeo.setAttribute('aSeed', new THREE.BufferAttribute(beamSeed, 1));
+  const beamLines = new THREE.LineSegments(
+    beamGeo,
+    new THREE.ShaderMaterial({
+      uniforms: connUniforms,
+      vertexShader: BEAM_VERTEX,
+      fragmentShader: BEAM_FRAGMENT,
+      transparent: true,
+      depthWrite: false,
+    })
+  );
+  beamLines.frustumCulled = false;
+  sphereObj.group.add(beamLines);
+
+  // Square emitter chip at the pyramid's apex.
+  const emitterGeo = new THREE.BufferGeometry();
+  const emitterPos = new THREE.BufferAttribute(new Float32Array(3), 3);
+  emitterGeo.setAttribute('position', emitterPos);
+  const emitter = new THREE.Points(
+    emitterGeo,
+    new THREE.ShaderMaterial({
+      uniforms: connUniforms,
+      vertexShader: EMITTER_VERTEX,
+      fragmentShader: EMITTER_FRAGMENT,
+      transparent: true,
+      depthWrite: false,
+    })
+  );
+  emitter.frustumCulled = false;
+  sphereObj.group.add(emitter);
+
+  const nearestVertexIndex = (anchor) => {
+    let best = 0;
+    let bestD = Infinity;
+    for (let i = 0; i < SPHERE_POINTS; i++) {
+      const dx = sphereData.positions[i * 3] - anchor.x;
+      const dy = sphereData.positions[i * 3 + 1] - anchor.y;
+      const dz = sphereData.positions[i * 3 + 2] - anchor.z;
+      const d = dx * dx + dy * dy + dz * dz;
+      if (d < bestD) {
+        bestD = d;
+        best = i;
+      }
+    }
+    return best;
+  };
+
+  // Projection pyramid: from the sphere vertex (the projector), four edge
+  // lines rise to the label's four corners; faint rays fill the inside.
+  // Re-aimed every frame while hovered, so it tracks the moving label and
+  // the sphere's rotation exactly.
+  const aimConnector = ({ anchor, el, vi }) => {
+    const start = new THREE.Vector3().fromArray(sphereData.positions, vi * 3); // projector
+    emitterPos.array.set([start.x, start.y, start.z]);
+    emitterPos.needsUpdate = true;
+
+    // The label's box, measured for real and mapped into sphere-local space:
+    // world size from its on-screen rect, screen axes unrotated by the group.
+    const worldAnchor = anchor.clone().applyMatrix4(sphereObj.group.matrixWorld);
+    // View-space depth (not euclidean distance) — px→world scaling must use
+    // the z along the camera axis or off-center labels get oversized frames.
+    const depth = Math.max(0.1, camera.position.z - worldAnchor.z);
+    const worldPerPx = (2 * depth * Math.tan(THREE.MathUtils.degToRad(camera.fov / 2))) / innerHeight;
+    const rect = el.getBoundingClientRect();
+    const hw = (rect.width / 2) * worldPerPx;
+    const hh = (rect.height / 2) * worldPerPx;
+    const q = sphereObj.group.getWorldQuaternion(new THREE.Quaternion()).invert();
+    const right = new THREE.Vector3(1, 0, 0).applyQuaternion(q).multiplyScalar(hw);
+    const up = new THREE.Vector3(0, 1, 0).applyQuaternion(q).multiplyScalar(hh);
+
+    const target = new THREE.Vector3();
+    for (let i = 0; i < beamSegments; i++) {
+      if (i < BEAM_EDGES) {
+        // the four corners: TL, TR, BL, BR
+        const sx = i % 2 === 0 ? -1 : 1;
+        const sy = i < 2 ? 1 : -1;
+        target.copy(anchor).addScaledVector(right, sx).addScaledVector(up, sy);
+      } else {
+        // rays scattered across the inside of the pyramid's base
+        const k = i - BEAM_EDGES + 1;
+        const sx = ((k * 0.618034) % 1) * 2 - 1;
+        const sy = ((k * 0.381966) % 1) * 2 - 1;
+        target.copy(anchor).addScaledVector(right, sx * 0.85).addScaledVector(up, sy * 0.85);
+      }
+      beamPos.array.set([start.x, start.y, start.z, target.x, target.y, target.z], i * 6);
+    }
+    beamPos.needsUpdate = true;
+
+    // Light up the docked vertex's own edges.
+    let n = 0;
+    for (let e = 0; e < sphereData.edges.length && n < MAX_GLOW_EDGES; e += 2) {
+      const a = sphereData.edges[e];
+      const b = sphereData.edges[e + 1];
+      if (a !== vi && b !== vi) continue;
+      glowPos.array.set(sphereData.positions.subarray(a * 3, a * 3 + 3), n * 6);
+      glowPos.array.set(sphereData.positions.subarray(b * 3, b * 3 + 3), n * 6 + 3);
+      n++;
+    }
+    glowGeo.setDrawRange(0, n * 2);
+    glowPos.needsUpdate = true;
+  };
+
+  let hover = null; // { anchor, el, vi }
+  labels.forEach((el, i) => {
+    el.addEventListener('mouseenter', () => {
+      hover = { anchor: anchors[i], el, vi: nearestVertexIndex(anchors[i]) };
+    });
+    el.addEventListener('mouseleave', () => (hover = null));
+  });
 
   // Readable bottom-right index, cloned from the orbiting labels so the
   // project list lives in one place (index.html).
@@ -481,6 +718,19 @@ export function createFaceScene(canvas, initialTheme) {
       0.45 * smoothstep(0.75, 1, assemble) * (1 - smoothstep(0.02, 0.15, s))
     ).toFixed(3);
 
+    // Hover projection eases in while a label is hovered, retracts after.
+    // No projection for labels behind the sphere — the projector would be
+    // occluded, so the effect only exists on the front hemisphere.
+    let hoverInFront = false;
+    if (hover) {
+      sphereObj.group.updateMatrixWorld();
+      worldPos.copy(hover.anchor).applyMatrix4(sphereObj.group.matrixWorld);
+      hoverInFront = worldPos.z > 0.05;
+    }
+    connUniforms.uProgress.value +=
+      ((hover && hoverInFront ? 1 : 0) - connUniforms.uProgress.value) *
+      (hover && hoverInFront ? 0.12 : 0.18);
+
     // -- project labels track their 3D anchors --
     const labelsOn = smoothstep(0.78, 1, s);
     projectsEl.style.opacity = labelsOn.toFixed(3);
@@ -506,6 +756,11 @@ export function createFaceScene(canvas, initialTheme) {
         el.style.transform = `translate(-50%, -50%) translate(${x.toFixed(1)}px, ${y.toFixed(1)}px) scale(${(0.72 + 0.34 * front).toFixed(3)})`;
         el.style.opacity = (0.25 + 0.75 * front).toFixed(3);
         el.style.zIndex = String(Math.round(front * 10));
+      }
+      // Re-aim the projection pyramid after the labels have moved, so it
+      // stays glued to the hovered label's corners while everything rotates.
+      if (hover && connUniforms.uProgress.value > 0.001) {
+        aimConnector(hover);
       }
     }
 

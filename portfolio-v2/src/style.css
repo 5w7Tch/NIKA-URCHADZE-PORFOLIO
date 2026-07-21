@@ -110,18 +110,35 @@ body::-webkit-scrollbar {
   letter-spacing: 0.18em;
   text-transform: uppercase;
   white-space: nowrap;
-  padding: 0.45rem 0.8rem;
-  border: 1px solid transparent;
-  border-radius: 2rem;
-  transition: border-color 0.2s ease;
+  padding: 0.5rem 0.9rem;
   will-change: transform, opacity;
   cursor: pointer;
 }
 
+/* Hover: a targeting reticle — chamfered corner brackets plus connection
+   port ticks mid-edge, where the tendril plugs in. */
 .project:hover,
 .project:focus-visible {
-  border-color: var(--fg);
   outline: none;
+  background-image:
+    linear-gradient(var(--fg), var(--fg)), linear-gradient(var(--fg), var(--fg)),
+    linear-gradient(var(--fg), var(--fg)), linear-gradient(var(--fg), var(--fg)),
+    linear-gradient(var(--fg), var(--fg)), linear-gradient(var(--fg), var(--fg)),
+    linear-gradient(var(--fg), var(--fg)), linear-gradient(var(--fg), var(--fg)),
+    linear-gradient(var(--fg), var(--fg)), linear-gradient(var(--fg), var(--fg));
+  background-repeat: no-repeat;
+  background-size:
+    12px 1.5px, 1.5px 12px,
+    12px 1.5px, 1.5px 12px,
+    12px 1.5px, 1.5px 12px,
+    12px 1.5px, 1.5px 12px,
+    6px 1.5px, 6px 1.5px;
+  background-position:
+    0 0, 0 0,
+    100% 0, 100% 0,
+    0 100%, 0 100%,
+    100% 100%, 100% 100%,
+    0 50%, 100% 50%;
 }
 
 .corner-heading {
