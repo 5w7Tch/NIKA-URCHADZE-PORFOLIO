@@ -525,9 +525,15 @@ a.project-list-item:focus-visible {
 }
 
 @media (max-width: 720px) {
-  /* Sphere view on phones: just the sphere — lists live in side drawers. */
-  #projects {
-    display: none;
+  :root {
+    --drawer-w: min(76vw, 320px);
+  }
+
+  /* Orbit labels stay, just smaller; the lists live in side drawers. */
+  .project {
+    font-size: 0.58rem;
+    letter-spacing: 0.12em;
+    padding: 0.3rem 0.5rem;
   }
 
   .drawer-arrow {
@@ -552,6 +558,10 @@ a.project-list-item:focus-visible {
     pointer-events: auto;
   }
 
+  .drawer-arrow {
+    transition: transform 0.35s ease, opacity 0.2s ease;
+  }
+
   .drawer-arrow svg {
     width: 26px;
     height: 26px;
@@ -563,12 +573,21 @@ a.project-list-item:focus-visible {
   }
 
   #work-arrow {
-    left: 0.3rem;
+    left: 0;
     color: var(--accent);
   }
 
   #projects-arrow {
-    right: 0.3rem;
+    right: 0;
+  }
+
+  /* The arrow rides along with its opening drawer. */
+  #work-arrow.open {
+    transform: translateY(-50%) translateX(var(--drawer-w));
+  }
+
+  #projects-arrow.open {
+    transform: translateY(-50%) translateX(calc(-1 * var(--drawer-w)));
   }
 
   /* The corner lists become full-height slide-in drawers. */
@@ -577,7 +596,7 @@ a.project-list-item:focus-visible {
     top: 0;
     bottom: 0;
     height: 100%;
-    width: min(76vw, 320px);
+    width: var(--drawer-w);
     padding: 4.6rem 1.5rem 2rem;
     background: var(--bg);
     overflow-y: auto;
@@ -590,14 +609,12 @@ a.project-list-item:focus-visible {
   #project-list {
     right: 0;
     left: auto;
-    border-left: 1px solid var(--fg);
     transform: translateX(102%);
   }
 
   #experience {
     left: 0;
     right: auto;
-    border-right: 1px solid var(--accent);
     transform: translateX(-102%);
   }
 

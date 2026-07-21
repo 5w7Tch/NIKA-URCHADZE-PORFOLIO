@@ -226,7 +226,7 @@ export function createFaceScene(canvas, initialTheme) {
   // sphere always fit the width.
   const frameCamera = () => {
     camera.aspect = innerWidth / innerHeight;
-    camera.position.z = Math.max(4.2, 3.1 / camera.aspect);
+    camera.position.z = Math.max(4.2, 3.9 / camera.aspect);
     camera.updateProjectionMatrix();
   };
   frameCamera();
