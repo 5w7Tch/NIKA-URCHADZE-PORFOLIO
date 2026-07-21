@@ -56,10 +56,12 @@ export function initLive(sceneApi) {
     button.setAttribute('aria-pressed', 'true');
     setHint('finding you…');
 
-    const aspect = 640 / 480;
     const tick = () => {
       if (!running) return;
       if (video.readyState >= 2) {
+        // Real stream dimensions — phones often deliver portrait video
+        // regardless of what was requested.
+        const aspect = video.videoWidth / video.videoHeight || 4 / 3;
         const result = landmarker.detectForVideo(video, performance.now());
         const landmarks = result?.faceLandmarks?.[0];
         if (landmarks) {

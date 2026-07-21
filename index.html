@@ -15,9 +15,9 @@
       document.documentElement.dataset.theme =
         stored || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
     </script>
-    <script type="module" crossorigin src="./assets/main-DxGFfQGM.js"></script>
+    <script type="module" crossorigin src="./assets/main-DweZ3H7Y.js"></script>
     <link rel="modulepreload" crossorigin href="./assets/wire-DomKY6sr.js">
-    <link rel="stylesheet" crossorigin href="./assets/main-CbXs-4gy.css">
+    <link rel="stylesheet" crossorigin href="./assets/main-Bm3rgNev.css">
   </head>
   <body>
     <canvas id="scene" aria-hidden="true"></canvas>
@@ -69,6 +69,18 @@
         <div class="term-body"></div>
       </div>
     </div>
+
+    <!-- Mobile-only: side arrows sliding out the experience / project lists. -->
+    <button id="work-arrow" class="drawer-arrow" type="button" aria-expanded="false" aria-label="Work experience">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M9 6l6 6-6 6" />
+      </svg>
+    </button>
+    <button id="projects-arrow" class="drawer-arrow" type="button" aria-expanded="false" aria-label="Projects">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M15 6l-6 6 6 6" />
+      </svg>
+    </button>
 
     <div id="scroll-hint" aria-hidden="true">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">

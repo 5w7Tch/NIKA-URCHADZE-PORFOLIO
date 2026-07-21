@@ -222,7 +222,14 @@ export function createFaceScene(canvas, initialTheme) {
 
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(40, innerWidth / innerHeight, 0.1, 50);
-  camera.position.z = 4.2;
+  // On narrow (portrait) screens the camera pulls back so the face and
+  // sphere always fit the width.
+  const frameCamera = () => {
+    camera.aspect = innerWidth / innerHeight;
+    camera.position.z = Math.max(4.2, 3.1 / camera.aspect);
+    camera.updateProjectionMatrix();
+  };
+  frameCamera();
 
   const targetColor = themeColor(initialTheme);
   const shared = {
@@ -276,6 +283,7 @@ export function createFaceScene(canvas, initialTheme) {
 
   const experienceEl = document.getElementById('experience');
   const scrollHintEl = document.getElementById('scroll-hint');
+  const drawerArrows = [...document.querySelectorAll('.drawer-arrow')];
   const anchors = labels.map((_, i) => {
     const y = labels.length === 1 ? 0 : 1 - (i / (labels.length - 1)) * 2;
     const r = Math.sqrt(Math.max(0, 1 - y * y * 0.7));
@@ -321,8 +329,7 @@ export function createFaceScene(canvas, initialTheme) {
   addEventListener('pointercancel', () => (spin.dragging = false));
 
   addEventListener('resize', () => {
-    camera.aspect = innerWidth / innerHeight;
-    camera.updateProjectionMatrix();
+    frameCamera();
     renderer.setSize(innerWidth, innerHeight);
     shared.uPixelRatio.value = Math.min(devicePixelRatio, 2);
   });
@@ -482,6 +489,10 @@ export function createFaceScene(canvas, initialTheme) {
     listEl.classList.toggle('active', labelsOn > 0.6);
     experienceEl.style.opacity = labelsOn.toFixed(3);
     experienceEl.classList.toggle('active', labelsOn > 0.6);
+    for (const arrow of drawerArrows) {
+      arrow.style.opacity = (labelsOn * 0.7).toFixed(3);
+      arrow.classList.toggle('active', labelsOn > 0.6);
+    }
     if (labelsOn > 0.01) {
       sphereObj.group.updateMatrixWorld();
       for (let i = 0; i < labels.length; i++) {
