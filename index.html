@@ -1,627 +1,98 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nika Urchadze | Full-Stack Engineer</title>
-    <link rel="icon" type="image/png" href="NU_white.png">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="styles.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-</head>
-<body>
-    <!-- Theme Toggle -->
-    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
-        <i class="fas fa-moon"></i>
-        <i class="fas fa-sun"></i>
-    </button>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nika Urchadze</title>
+    <meta name="description" content="Nika Urchadze — portfolio" />
+    <link rel="icon" type="image/png" href="NU_black.png" media="(prefers-color-scheme: light)" />
+    <link rel="icon" type="image/png" href="NU_white.png" media="(prefers-color-scheme: dark)" />
+    <link rel="icon" type="image/png" href="NU_black.png" />
+    <script>
+      // Set theme before first paint to avoid a flash of the wrong mode.
+      // ?theme=light|dark deep-links a mode; otherwise saved choice, then system.
+      const stored = new URLSearchParams(location.search).get('theme') || localStorage.getItem('theme');
+      document.documentElement.dataset.theme =
+        stored || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    </script>
+    <script type="module" crossorigin src="./assets/main-B2xUWEZc.js"></script>
+    <link rel="modulepreload" crossorigin href="./assets/wire-DomKY6sr.js">
+    <link rel="stylesheet" crossorigin href="./assets/main-BTezl0i0.css">
+  </head>
+  <body>
+    <canvas id="scene" aria-hidden="true"></canvas>
 
-    <!-- Navigation -->
-    <nav class="navbar" id="navbar">
-        <div class="nav-container">
-            <a href="#" class="nav-logo">
-                <img src="NU_white.png" alt="NU Logo" class="logo-img logo-dark">
-                <img src="NU_black.png" alt="NU Logo" class="logo-img logo-light">
-            </a>
-            <ul class="nav-menu" id="navMenu">
-                <li><a href="#about" class="nav-link">About</a></li>
-                <li><a href="#experience" class="nav-link">Experience</a></li>
-                <li><a href="#projects" class="nav-link">Projects</a></li>
-                <li><a href="#skills" class="nav-link">Skills</a></li>
-                <li><a href="#contact" class="nav-link">Contact</a></li>
-            </ul>
-            <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-        </div>
+    <header class="header">
+      <h1 class="signature">Nika Urchadze</h1>
+    </header>
+
+    <!-- Projects orbit the sphere after scrolling; clicking one opens the
+         terminal window. All project content lives here, in data attributes.
+         Ordered newest → oldest. -->
+    <nav id="projects" aria-label="Projects">
+      <a class="project" href="https://mona-lisa.online" data-link="https://mona-lisa.online" data-tags="Swift 6, SwiftUI, Core ML, Vision, Cloudflare Workers, Paddle" data-desc="Commercial macOS security app built solo: a menu-bar agent that face-verifies whoever sits at the Mac and locks the screen when an unenrolled user appears — Vision landmark alignment, Core ML face embeddings, blink-based liveness against photo spoofing. Full commercial stack: Cloudflare Worker licensing backend, Paddle subscriptions, offline Ed25519 device-bound licenses, signed DMG releases with forced updates.">Mona Lisa</a>
+      <a class="project" tabindex="0" data-note="private" data-tags="Next.js, React 19, Expo / React Native, FastAPI, Supabase" data-desc="Full-stack productivity platform shipping three targets from one codebase family: web, iOS and Android, on a FastAPI + Supabase backend. Zero-knowledge client-side encryption for the finance module (PBKDF2 + AES-GCM), a custom conflict-resolving document-sync engine, JWT auth, rate limiting, Postgres row-level security, Google Calendar OAuth.">Life Tracker</a>
+      <a class="project" href="https://github.com/5w7Tch/monet-cyclegan" data-github="https://github.com/5w7Tch/monet-cyclegan" data-link="https://www.kaggle.com/competitions/gan-getting-started" data-tags="PyTorch, Python, WandB" data-desc="Implemented CycleGAN from scratch for a Kaggle competition with ResNet generators.">CycleGAN Monet</a>
+      <a class="project" tabindex="0" data-note="private" data-tags="FastAPI, React, PostgreSQL" data-desc="SaaS platform for purchasing, managing, and health-tracking email accounts at scale.">Email SaaS Platform</a>
+      <a class="project" tabindex="0" data-note="private" data-tags="FastAPI, React, SQLAlchemy" data-desc="Full-stack system for lead filtering and email enrichment. Saved thousands for the company.">Lead Generation System</a>
+      <a class="project" tabindex="0" data-note="private" data-tags="FastAPI, React, PostgreSQL" data-desc="System to organize email fleets with parallel tagging. Hours to seconds.">Email Tagging System</a>
+      <a class="project" href="https://salomeshengelaia.site/" data-github="https://github.com/5w7Tch/Salome-Shengelaia-portfolio" data-link="https://salomeshengelaia.site/" data-tags="JavaScript, PDF.js, Canvas" data-desc="Portfolio with realistic page-flip animations and optimized PDF loading.">Interactive Book Portfolio</a>
+      <a class="project" href="https://github.com/5w7Tch/HLD_nand_final" data-github="https://github.com/5w7Tch/HLD_nand_final" data-tags="HDL, Assembly, Python" data-desc="Built an entire computing system from NAND gates up, with an HDL parser.">NAND to Tetris HDL</a>
+      <a class="project" tabindex="0" data-note="university" data-tags="C, RISC-V, OS Design" data-desc="Operating system syscalls with Copy-on-Write optimization.">RISC-V OS Development</a>
+      <a class="project" tabindex="0" data-note="university" data-tags="Python, RISC-V, Assembly" data-desc="CPU interpreter simulating processor-register interactions.">RISC-V Interpreter</a>
+      <a class="project" href="https://github.com/5w7Tch/Machine-Learning" data-github="https://github.com/5w7Tch/Machine-Learning" data-tags="Python, scikit-learn, Jupyter" data-desc="House-price prediction (advanced regression techniques): data cleaning, feature engineering, Random Forest and other models with hyperparameter tuning.">ML House Prices</a>
+      <a class="project" href="https://github.com/5w7Tch/IOS_Weather_APP" data-github="https://github.com/5w7Tch/IOS_Weather_APP" data-tags="Swift, UIKit, CoreLocation" data-desc="Weather app with automatic location detection and manual city search.">iOS Weather App</a>
+      <a class="project" href="https://github.com/5w7Tch/Market-API" data-github="https://github.com/5w7Tch/Market-API" data-tags="Java, Spring, REST API" data-desc="Backend for cashiers with sales management and a currency converter.">Market API Backend</a>
+      <a class="project" href="https://github.com/5w7Tch/Notes" data-github="https://github.com/5w7Tch/Notes" data-tags="Swift, UIKit, Core Data" data-desc="iOS notes app with Core Data persistence, search, and a Pinterest-style masonry layout.">iOS Notes App</a>
+      <a class="project" href="https://github.com/5w7Tch/Contacts" data-github="https://github.com/5w7Tch/Contacts" data-tags="Swift, UIKit" data-desc="Fully functional iOS contacts app — add and manage connections and their phone numbers.">iOS Contacts App</a>
+      <a class="project" href="https://github.com/5w7Tch/Networking" data-github="https://github.com/5w7Tch/Networking" data-tags="Networking, Sockets" data-desc="University networking course projects — protocols and socket programming in practice.">Networking Course</a>
+      <a class="project" href="https://github.com/5w7Tch/PowerRangers" data-github="https://github.com/5w7Tch/PowerRangers" data-tags="Java, JSP, MySQL" data-desc="Social network for quizzes with 10+ question types and competitive leaderboards.">Quiz Social Platform</a>
+      <a class="project" href="https://github.com/5w7Tch/store" data-github="https://github.com/5w7Tch/store" data-tags="Java" data-desc="Store management application in Java — university coursework.">Java Store App</a>
     </nav>
 
-    <!-- Hero Section -->
-    <section class="hero" id="hero">
-        <div class="hero-bg">
-            <div class="floating-shapes">
-                <div class="shape shape-1"></div>
-                <div class="shape shape-2"></div>
-                <div class="shape shape-3"></div>
-                <div class="shape shape-4"></div>
-                <div class="shape shape-5"></div>
-            </div>
-            <div class="code-snippets">
-                <div class="code-line code-line-1">const developer = "Nika";</div>
-                <div class="code-line code-line-2">function buildAwesome() {}</div>
-                <div class="code-line code-line-3">// TODO: Change the world</div>
-                <div class="code-line code-line-4">return &lt;Portfolio /&gt;</div>
-                <div class="code-line code-line-5">await createMagic();</div>
-            </div>
-            <div class="cursor-blob" id="cursorBlob"></div>
+    <!-- Work experience (from CV-2026-draft.md) — the red list, bottom-left. -->
+    <nav id="experience" aria-label="Experience">
+      <span class="corner-heading">experience</span>
+      <a class="xp" tabindex="0" data-role="Full-Stack / AI Engineer" data-dates="Jan 2026 — present" data-tags="TypeScript, Express, MongoDB, Redis, LangChain" data-desc="Core engineer (300+ commits) on the AI backend powering “Sophia” — an LLM support agent autonomously handling parent, tutor and student chats in production for a UK tutoring platform. Two-stage agent architecture routing ~24 problem types across OpenAI, Gemini, Anthropic and xAI; 30+ role-scoped function-calling tools behind human-in-the-loop approval; RAG pipeline with an LLM-as-judge eval harness; nightly agentic jobs that diagnose production defects and open fix MRs; AI voice features with ElevenLabs and Deepgram.">Edumentors</a>
+      <a class="xp" tabindex="0" data-role="Software Engineer" data-dates="Mar 2025 — Jan 2026" data-tags="Python, FastAPI, ARQ, LLM APIs, n8n" data-desc="Production Python backends powering internal platforms for cold-email outreach agencies operating thousands of email accounts: a privately hosted SaaS for purchasing, monitoring and health-tracking email fleets with intelligent redistribution and recovery; AI workflows for automated lead discovery and qualification; end-to-end ops automation across Airtable, ClickUp, BigQuery, n8n, Make, Zapier and Slack.">Stimuli Digital</a>
+      <a class="xp" tabindex="0" data-role="Teaching Assistant — OOP &amp; Design Patterns" data-dates="Mar 2025 — Jan 2026" data-tags="Java, Design Patterns, Unit Testing" data-desc="Taught practical sessions on OOP in Java; graded coursework for correctness, design-pattern usage and unit-testing practice across two courses.">Free University of Tbilisi</a>
+    </nav>
+
+    <div id="terminal" hidden>
+      <div class="term-backdrop"></div>
+      <div class="term-window" role="dialog" aria-modal="true" aria-labelledby="term-title">
+        <div class="term-bar">
+          <span class="term-dots"><i></i><i></i><i></i></span>
+          <span class="term-title" id="term-title">nika@portfolio ~</span>
+          <button class="term-close" type="button" aria-label="Close">×</button>
         </div>
-        <div class="hero-content">
-            <div class="hero-text">
-                <p class="hero-greeting animate-in">Hello, World! I'm</p>
-                <h1 class="hero-title animate-in delay-1">
-                    Nika Urchadze
-                    <span class="title-accent">Full-Stack Engineer</span>
-                    <span class="title-sub">& Problem Solver</span>
-                </h1>
-                <p class="hero-description animate-in delay-2">
-                    Building web apps, AI tools, and scalable systems that make a difference.
-                </p>
-                <div class="hero-buttons animate-in delay-3">
-                    <a href="#projects" class="btn btn-primary">
-                        <span>See Projects</span>
-                        <i class="fas fa-arrow-right"></i>
-                    </a>
-                    <a href="#contact" class="btn btn-secondary">
-                        <span>Contact Me</span>
-                        <i class="fas fa-envelope"></i>
-                    </a>
-                </div>
-            </div>
-            <div class="hero-visual animate-in delay-2">
-                <div class="terminal">
-                    <div class="terminal-header">
-                        <span class="terminal-dot red"></span>
-                        <span class="terminal-dot yellow"></span>
-                        <span class="terminal-dot green"></span>
-                        <span class="terminal-title">nika@portfolio ~ </span>
-                    </div>
-                    <div class="terminal-body">
-                        <div class="terminal-line">
-                            <span class="prompt">$</span>
-                            <span class="command typing" id="terminalText"></span>
-                            <span class="cursor">|</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <a href="#about" class="scroll-indicator">
-            <span>Scroll</span>
-            <i class="fas fa-chevron-down"></i>
-        </a>
-    </section>
+        <div class="term-body"></div>
+      </div>
+    </div>
 
-    <!-- About Section -->
-    <section class="about" id="about">
-        <div class="container">
-            <h2 class="section-title">
-                <span class="title-number">01.</span>
-                About Me
-            </h2>
-            <div class="about-content">
-                <div class="about-text">
-                    <p class="about-intro">
-                        I'm a <span class="highlight">full-stack engineer</span> and Computer Science student at Free University of Tbilisi, building everything from iOS apps to machine learning models to scalable SaaS platforms.
-                    </p>
-                    <p>
-                        My journey spans low-level systems programming (RISC-V, OS development, NAND to Tetris) to high-level full-stack development (React, FastAPI, PostgreSQL). I've built production systems that saved companies thousands of dollars and created ML models for Kaggle competitions.
-                    </p>
-                    <p>
-                        I thrive on understanding how things work from the ground up — whether that's implementing a CPU interpreter, building a CycleGAN from scratch, or architecting email management systems at scale.
-                    </p>
-                    <div class="about-badges">
-                        <div class="badge" data-tooltip="React, Swift UIKit, TypeScript">
-                            <i class="fas fa-laptop-code"></i>
-                            <span>Frontend & Mobile</span>
-                        </div>
-                        <div class="badge" data-tooltip="FastAPI, PostgreSQL, SQLAlchemy">
-                            <i class="fas fa-server"></i>
-                            <span>Backend Systems</span>
-                        </div>
-                        <div class="badge" data-tooltip="PyTorch, CycleGAN, Computer Vision">
-                            <i class="fas fa-brain"></i>
-                            <span>Machine Learning</span>
-                        </div>
-                        <div class="badge" data-tooltip="RISC-V, OS Dev, Low-level C">
-                            <i class="fas fa-microchip"></i>
-                            <span>Systems Programming</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="about-visual">
-                    <div class="avatar-container">
-                        <div class="avatar-ring"></div>
-                        <div class="avatar">
-                            <div class="avatar-placeholder">
-                                <i class="fas fa-code"></i>
-                            </div>
-                        </div>
-                        <div class="avatar-decorations">
-                            <span class="deco deco-1"><i class="fab fa-react"></i></span>
-                            <span class="deco deco-2"><i class="fab fa-python"></i></span>
-                            <span class="deco deco-3"><i class="fab fa-swift"></i></span>
-                            <span class="deco deco-4"><i class="fas fa-database"></i></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="tech-marquee">
-                <div class="marquee-content">
-                    <span>Python</span>
-                    <span>•</span>
-                    <span>FastAPI</span>
-                    <span>•</span>
-                    <span>React</span>
-                    <span>•</span>
-                    <span>TypeScript</span>
-                    <span>•</span>
-                    <span>PostgreSQL</span>
-                    <span>•</span>
-                    <span>Swift</span>
-                    <span>•</span>
-                    <span>PyTorch</span>
-                    <span>•</span>
-                    <span>C</span>
-                    <span>•</span>
-                    <span>SQLAlchemy</span>
-                    <span>•</span>
-                    <span>Python</span>
-                    <span>•</span>
-                    <span>FastAPI</span>
-                    <span>•</span>
-                    <span>React</span>
-                    <span>•</span>
-                    <span>TypeScript</span>
-                    <span>•</span>
-                    <span>PostgreSQL</span>
-                    <span>•</span>
-                    <span>Swift</span>
-                    <span>•</span>
-                    <span>PyTorch</span>
-                    <span>•</span>
-                    <span>C</span>
-                    <span>•</span>
-                    <span>SQLAlchemy</span>
-                </div>
-            </div>
-        </div>
-    </section>
+    <div id="scroll-space" aria-hidden="true"></div>
 
-    <!-- Experience Section -->
-    <section class="experience" id="experience">
-        <div class="container">
-            <h2 class="section-title">
-                <span class="title-number">02.</span>
-                Experience
-            </h2>
-            <div class="timeline">
-                <div class="timeline-item">
-                    <div class="timeline-marker">
-                        <i class="fas fa-rocket"></i>
-                    </div>
-                    <div class="timeline-content">
-                        <div class="timeline-header">
-                            <h3 class="timeline-title">Full-Stack Developer</h3>
-                            <span class="timeline-company">Edumentors</span>
-                        </div>
-                        <span class="timeline-date">Jan 2026 - Present</span>
-                        <p class="timeline-description">
-                            Developing a full-stack educational platform connecting learners with top university students for private tutoring. Building AI-powered learning tools for personalized self-learning.
-                        </p>
-                        <div class="timeline-achievements">
-                            <span class="achievement"><i class="fas fa-check"></i> EdTech platform</span>
-                            <span class="achievement"><i class="fas fa-check"></i> AI learning tools</span>
-                            <span class="achievement"><i class="fas fa-check"></i> Full-stack development</span>
-                        </div>
-                    </div>
-                </div>
+    <div id="live-ui">
+      <button id="live-toggle" type="button" aria-pressed="false" aria-label="Copy me — the face becomes yours, live via your camera" title="Runs locally in your browser — nothing is uploaded">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="8.5" />
+          <circle cx="9" cy="10.5" r="0.4" fill="currentColor" />
+          <circle cx="15" cy="10.5" r="0.4" fill="currentColor" />
+          <path d="M9 15c.9.9 1.9 1.3 3 1.3s2.1-.4 3-1.3" />
+        </svg>
+      </button>
+      <span id="live-hint"></span>
+    </div>
 
-                <div class="timeline-item">
-                    <div class="timeline-marker">
-                        <i class="fas fa-briefcase"></i>
-                    </div>
-                    <div class="timeline-content">
-                        <div class="timeline-header">
-                            <h3 class="timeline-title">Full-Stack Developer</h3>
-                            <span class="timeline-company">Stimuli Digital</span>
-                        </div>
-                        <span class="timeline-date">Mar 2025 - Jan 2026</span>
-                        <p class="timeline-description">
-                            Built production Python apps and SaaS platforms for cold email agencies. Created AI-powered workflows with LLM APIs for lead discovery. Developed OutFound platform unifying cold outreach operations.
-                        </p>
-                        <div class="timeline-achievements">
-                            <span class="achievement"><i class="fas fa-check"></i> SaaS email platform</span>
-                            <span class="achievement"><i class="fas fa-check"></i> AI lead qualification</span>
-                            <span class="achievement"><i class="fas fa-check"></i> Global agency clients</span>
-                        </div>
-                    </div>
-                </div>
+    <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle day and night mode">
+      <svg class="icon icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z" />
+      </svg>
+      <svg class="icon icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="12" cy="12" r="4" />
+        <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
+      </svg>
+    </button>
 
-                <div class="timeline-item">
-                    <div class="timeline-marker">
-                        <i class="fas fa-chalkboard-teacher"></i>
-                    </div>
-                    <div class="timeline-content">
-                        <div class="timeline-header">
-                            <h3 class="timeline-title">Lecturer Assistant - Design Patterns</h3>
-                            <span class="timeline-company">Free University of Tbilisi</span>
-                        </div>
-                        <span class="timeline-date">Sep 2025 - Jan 2026</span>
-                        <p class="timeline-description">
-                            Evaluated student assignments on design patterns and unit testing. Reviewed diverse codebases strengthening code quality assessment and architecture skills.
-                        </p>
-                        <div class="timeline-achievements">
-                            <span class="achievement"><i class="fas fa-check"></i> Design patterns</span>
-                            <span class="achievement"><i class="fas fa-check"></i> Code review</span>
-                            <span class="achievement"><i class="fas fa-check"></i> Unit testing</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="timeline-marker">
-                        <i class="fas fa-chalkboard-teacher"></i>
-                    </div>
-                    <div class="timeline-content">
-                        <div class="timeline-header">
-                            <h3 class="timeline-title">Lecturer Assistant - OOP (Java)</h3>
-                            <span class="timeline-company">Free University of Tbilisi</span>
-                        </div>
-                        <span class="timeline-date">Mar 2025 - Jul 2025</span>
-                        <p class="timeline-description">
-                            Assisted teaching Object-Oriented Programming in Java. Delivered lectures and practical sessions, graded assignments with automated tests for functional accuracy.
-                        </p>
-                        <div class="timeline-achievements">
-                            <span class="achievement"><i class="fas fa-check"></i> Java OOP</span>
-                            <span class="achievement"><i class="fas fa-check"></i> Automated testing</span>
-                            <span class="achievement"><i class="fas fa-check"></i> Student mentoring</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="timeline-marker">
-                        <i class="fas fa-graduation-cap"></i>
-                    </div>
-                    <div class="timeline-content">
-                        <div class="timeline-header">
-                            <h3 class="timeline-title">Computer Science Student</h3>
-                            <span class="timeline-company">Free University of Tbilisi</span>
-                        </div>
-                        <span class="timeline-date">2022 - Present</span>
-                        <p class="timeline-description">
-                            Studying computer science with focus on systems programming, algorithms, machine learning, and full-stack development. Building real-world projects alongside coursework.
-                        </p>
-                        <div class="timeline-achievements">
-                            <span class="achievement"><i class="fas fa-check"></i> iOS Development</span>
-                            <span class="achievement"><i class="fas fa-check"></i> ML/AI courses</span>
-                            <span class="achievement"><i class="fas fa-check"></i> Systems programming</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Projects Section - 3D Sphere -->
-    <section class="projects-sphere" id="projects">
-        <!-- Navigation overlay that appears when scrolled within sphere section -->
-        <div class="sphere-nav-overlay" id="sphereNavOverlay">
-            <div class="sphere-nav-logo" id="sphereNavLogo">
-                <img src="NU_white.png" alt="NU Logo" class="logo-img logo-dark">
-                <img src="NU_black.png" alt="NU Logo" class="logo-img logo-light">
-            </div>
-            <button class="sphere-theme-toggle" id="sphereThemeToggle">
-                <i class="fas fa-moon"></i>
-                <i class="fas fa-sun"></i>
-            </button>
-        </div>
-        <div class="projects-sphere-header" id="projectsSphereHeader">
-            <h2 class="section-title">
-                <span class="title-number">03.</span>
-                Featured Projects
-            </h2>
-        </div>
-        <div class="sphere-container">
-            <div id="sphere-canvas-container"></div>
-            <div id="sphereProjectCards"></div>
-            <div class="sphere-project-indicator" id="sphereProjectIndicator"></div>
-        </div>
-    </section>
-
-    <!-- Skills Section -->
-    <section class="skills" id="skills">
-        <div class="container">
-            <h2 class="section-title light">
-                <span class="title-number">04.</span>
-                Skills & Tech Stack
-            </h2>
-            <div class="skills-content">
-                <div class="skills-category">
-                    <h3 class="category-title">
-                        <i class="fas fa-laptop-code"></i>
-                        Frontend & Mobile
-                    </h3>
-                    <div class="skills-list">
-                        <div class="skill-item" data-skill="react">
-                            <div class="skill-icon">
-                                <i class="fab fa-react"></i>
-                            </div>
-                            <div class="skill-info">
-                                <span class="skill-name">React / JSX / TSX</span>
-                                <div class="skill-bar">
-                                    <div class="skill-progress" data-progress="90"></div>
-                                </div>
-                            </div>
-                            <div class="skill-tooltip">
-                                <code>const App = () => &lt;Component /&gt;</code>
-                            </div>
-                        </div>
-                        <div class="skill-item" data-skill="swift">
-                            <div class="skill-icon">
-                                <i class="fab fa-swift"></i>
-                            </div>
-                            <div class="skill-info">
-                                <span class="skill-name">Swift / UIKit</span>
-                                <div class="skill-bar">
-                                    <div class="skill-progress" data-progress="80"></div>
-                                </div>
-                            </div>
-                            <div class="skill-tooltip">
-                                <code>class ViewController: UIViewController</code>
-                            </div>
-                        </div>
-                        <div class="skill-item" data-skill="typescript">
-                            <div class="skill-icon">
-                                <i class="fab fa-js-square"></i>
-                            </div>
-                            <div class="skill-info">
-                                <span class="skill-name">TypeScript / JavaScript</span>
-                                <div class="skill-bar">
-                                    <div class="skill-progress" data-progress="88"></div>
-                                </div>
-                            </div>
-                            <div class="skill-tooltip">
-                                <code>type Props = { data: T }</code>
-                            </div>
-                        </div>
-                        <div class="skill-item" data-skill="css">
-                            <div class="skill-icon">
-                                <i class="fab fa-css3-alt"></i>
-                            </div>
-                            <div class="skill-info">
-                                <span class="skill-name">CSS / HTML / Canvas</span>
-                                <div class="skill-bar">
-                                    <div class="skill-progress" data-progress="85"></div>
-                                </div>
-                            </div>
-                            <div class="skill-tooltip">
-                                <code>.page { transform: rotateY(180deg); }</code>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="skills-category">
-                    <h3 class="category-title">
-                        <i class="fas fa-server"></i>
-                        Backend
-                    </h3>
-                    <div class="skills-list">
-                        <div class="skill-item" data-skill="python">
-                            <div class="skill-icon">
-                                <i class="fab fa-python"></i>
-                            </div>
-                            <div class="skill-info">
-                                <span class="skill-name">Python / FastAPI</span>
-                                <div class="skill-bar">
-                                    <div class="skill-progress" data-progress="92"></div>
-                                </div>
-                            </div>
-                            <div class="skill-tooltip">
-                                <code>@app.get("/api/data")</code>
-                            </div>
-                        </div>
-                        <div class="skill-item" data-skill="java">
-                            <div class="skill-icon">
-                                <i class="fab fa-java"></i>
-                            </div>
-                            <div class="skill-info">
-                                <span class="skill-name">Java / Spring</span>
-                                <div class="skill-bar">
-                                    <div class="skill-progress" data-progress="85"></div>
-                                </div>
-                            </div>
-                            <div class="skill-tooltip">
-                                <code>@RestController @RequestMapping</code>
-                            </div>
-                        </div>
-                        <div class="skill-item" data-skill="database">
-                            <div class="skill-icon">
-                                <i class="fas fa-database"></i>
-                            </div>
-                            <div class="skill-info">
-                                <span class="skill-name">PostgreSQL / SQLAlchemy</span>
-                                <div class="skill-bar">
-                                    <div class="skill-progress" data-progress="88"></div>
-                                </div>
-                            </div>
-                            <div class="skill-tooltip">
-                                <code>session.query(Model).filter_by()</code>
-                            </div>
-                        </div>
-                        <div class="skill-item" data-skill="arq">
-                            <div class="skill-icon">
-                                <i class="fas fa-tasks"></i>
-                            </div>
-                            <div class="skill-info">
-                                <span class="skill-name">ARQ / Async Workers</span>
-                                <div class="skill-bar">
-                                    <div class="skill-progress" data-progress="85"></div>
-                                </div>
-                            </div>
-                            <div class="skill-tooltip">
-                                <code>await arq_pool.enqueue_job()</code>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="skills-category">
-                    <h3 class="category-title">
-                        <i class="fas fa-microchip"></i>
-                        Systems & AI
-                    </h3>
-                    <div class="skills-list">
-                        <div class="skill-item" data-skill="c">
-                            <div class="skill-icon">
-                                <i class="fas fa-code"></i>
-                            </div>
-                            <div class="skill-info">
-                                <span class="skill-name">C / OS Development</span>
-                                <div class="skill-bar">
-                                    <div class="skill-progress" data-progress="80"></div>
-                                </div>
-                            </div>
-                            <div class="skill-tooltip">
-                                <code>void* malloc(size_t size)</code>
-                            </div>
-                        </div>
-                        <div class="skill-item" data-skill="risc">
-                            <div class="skill-icon">
-                                <i class="fas fa-memory"></i>
-                            </div>
-                            <div class="skill-info">
-                                <span class="skill-name">RISC-V / Assembly</span>
-                                <div class="skill-bar">
-                                    <div class="skill-progress" data-progress="75"></div>
-                                </div>
-                            </div>
-                            <div class="skill-tooltip">
-                                <code>addi x1, x0, 10</code>
-                            </div>
-                        </div>
-                        <div class="skill-item" data-skill="pytorch">
-                            <div class="skill-icon">
-                                <i class="fas fa-brain"></i>
-                            </div>
-                            <div class="skill-info">
-                                <span class="skill-name">PyTorch / ML</span>
-                                <div class="skill-bar">
-                                    <div class="skill-progress" data-progress="78"></div>
-                                </div>
-                            </div>
-                            <div class="skill-tooltip">
-                                <code>loss.backward(); optimizer.step()</code>
-                            </div>
-                        </div>
-                        <div class="skill-item" data-skill="git">
-                            <div class="skill-icon">
-                                <i class="fab fa-git-alt"></i>
-                            </div>
-                            <div class="skill-info">
-                                <span class="skill-name">Git / Linux</span>
-                                <div class="skill-bar">
-                                    <div class="skill-progress" data-progress="90"></div>
-                                </div>
-                            </div>
-                            <div class="skill-tooltip">
-                                <code>git push magic main</code>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="floating-tech-badges">
-                <span class="float-badge"><i class="fab fa-react"></i></span>
-                <span class="float-badge"><i class="fab fa-node-js"></i></span>
-                <span class="float-badge"><i class="fab fa-python"></i></span>
-                <span class="float-badge"><i class="fab fa-docker"></i></span>
-                <span class="float-badge"><i class="fab fa-aws"></i></span>
-                <span class="float-badge"><i class="fas fa-database"></i></span>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section class="contact" id="contact">
-        <div class="container">
-            <h2 class="section-title light">
-                <span class="title-number">05.</span>
-                Get In Touch
-            </h2>
-            <div class="contact-simple">
-                <p class="contact-intro">
-                    I'm currently open to new opportunities and interesting projects. Whether you have a question, want to collaborate, or just want to say hi — feel free to reach out!
-                </p>
-                <div class="contact-cards">
-                    <a href="mailto:nurch22@freeuni.edu.ge" class="contact-card">
-                        <div class="contact-card-icon">
-                            <i class="fas fa-envelope"></i>
-                        </div>
-                        <h3>Email</h3>
-                        <span>nurch22@freeuni.edu.ge</span>
-                    </a>
-                    <a href="https://github.com/5w7Tch" target="_blank" class="contact-card">
-                        <div class="contact-card-icon">
-                            <i class="fab fa-github"></i>
-                        </div>
-                        <h3>GitHub</h3>
-                        <span>@5w7Tch</span>
-                    </a>
-                    <a href="https://www.linkedin.com/in/nika-urchadze-292358293/" target="_blank" class="contact-card">
-                        <div class="contact-card-icon">
-                            <i class="fab fa-linkedin"></i>
-                        </div>
-                        <h3>LinkedIn</h3>
-                        <span>nika-urchadze</span>
-                    </a>
-                </div>
-                <a href="mailto:nurch22@freeuni.edu.ge" class="btn btn-primary btn-contact">
-                    <span>Say Hello</span>
-                    <i class="fas fa-paper-plane"></i>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <p class="footer-text">
-                    Designed & Built by <span class="accent">Nika Urchadze</span>
-                </p>
-                <div class="footer-socials">
-                    <a href="https://github.com/5w7Tch" target="_blank" aria-label="GitHub">
-                        <i class="fab fa-github"></i>
-                    </a>
-                    <a href="https://www.linkedin.com/in/nika-urchadze-292358293/" target="_blank" aria-label="LinkedIn">
-                        <i class="fab fa-linkedin"></i>
-                    </a>
-                    <a href="mailto:nurch22@freeuni.edu.ge" aria-label="Email">
-                        <i class="fas fa-envelope"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </footer>
-
-    <script src="script.js"></script>
-</body>
+  </body>
 </html>
