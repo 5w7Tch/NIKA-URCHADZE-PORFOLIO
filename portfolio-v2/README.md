@@ -8,6 +8,7 @@ Minimal black & white portfolio: a centered signature and a 3D face built from d
 npm install
 npm run dev      # local dev server
 npm run build    # production build → dist/
+npm run cv       # cv/cv.html → NIKA_URCHADZE_<date>.pdf (headless Chrome)
 ```
 
 ## The face
