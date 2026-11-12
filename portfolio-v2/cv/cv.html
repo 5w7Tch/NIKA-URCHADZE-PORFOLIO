@@ -4,11 +4,16 @@
 <meta charset="utf-8">
 <title>Nika Urchadze — CV</title>
 <!-- Source of the CV PDF. Render with: npm run cv -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  @page { size: Letter; margin: 0; }
+  /* Static Inter instances: Google Fonts serves a variable font, which Chrome
+     embeds as many subsets whose text extracts out of order — ATS parsers
+     then read the CV as scrambled letters. */
+  @font-face { font-family: Inter; font-weight: 400; src: url(https://cdn.jsdelivr.net/npm/@fontsource/inter@5.1.0/files/inter-latin-400-normal.woff2) format('woff2'); }
+  @font-face { font-family: Inter; font-weight: 500; src: url(https://cdn.jsdelivr.net/npm/@fontsource/inter@5.1.0/files/inter-latin-500-normal.woff2) format('woff2'); }
+  @font-face { font-family: Inter; font-weight: 600; src: url(https://cdn.jsdelivr.net/npm/@fontsource/inter@5.1.0/files/inter-latin-600-normal.woff2) format('woff2'); }
+  @font-face { font-family: Inter; font-weight: 700; src: url(https://cdn.jsdelivr.net/npm/@fontsource/inter@5.1.0/files/inter-latin-700-normal.woff2) format('woff2'); }
+
+  @page { size: Letter; margin: 0.4in 0 0.36in; }
   :root { --accent: #0f7a6c; --ink: #16181d; --muted: #4b5160; --rule: #d9dde3; }
   * { box-sizing: border-box; }
   html, body { margin: 0; background: #fff; }
@@ -20,7 +25,7 @@
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
   }
-  .page { width: 8.5in; padding: 0.4in 0.5in 0.3in; }
+  .page { width: 8.5in; padding: 0 0.5in; }
   a { color: inherit; text-decoration: none; }
 
   header h1 { margin: 0; font-size: 20pt; letter-spacing: 0.02em; color: var(--accent); font-weight: 700; }
@@ -38,18 +43,20 @@
     text-transform: uppercase;
     color: var(--accent);
     font-weight: 600;
+    break-after: avoid;
   }
+  h3 { margin: 4pt 0 0; font-size: 8.3pt; font-weight: 600; color: var(--accent); break-after: avoid; }
 
-  .entry { margin-bottom: 5pt; break-inside: avoid; }
-  .entry-head { display: flex; justify-content: space-between; align-items: baseline; gap: 10pt; }
+  .entry { margin-bottom: 5pt; }
+  .entry-head { display: flex; justify-content: space-between; align-items: baseline; gap: 10pt; break-after: avoid; }
   .entry-title { font-weight: 600; font-size: 9.4pt; }
   .entry-title .role { font-weight: 500; color: var(--muted); }
   .entry-title .link { font-weight: 400; color: var(--accent); font-size: 8.4pt; }
   .dates { white-space: nowrap; color: var(--muted); font-size: 8.4pt; font-weight: 500; }
-  .sub { color: var(--muted); font-size: 8.3pt; margin: 0.5pt 0 1.5pt; }
+  .sub { color: var(--muted); font-size: 8.3pt; margin: 0.5pt 0 1.5pt; break-after: avoid; }
 
   ul { margin: 1.5pt 0 0; padding-left: 11pt; }
-  li { margin: 0 0 1.6pt; padding-left: 1pt; }
+  li { margin: 0 0 1.6pt; padding-left: 1pt; break-inside: avoid; }
   li::marker { color: var(--accent); }
   b { font-weight: 600; }
 
@@ -63,7 +70,7 @@
 
 <header>
   <h1>NIKA URCHADZE</h1>
-  <div class="headline">Full-Stack &amp; AI Engineer — production LLM agents, macOS apps</div>
+  <div class="headline">AI &amp; Full-Stack Engineer — production LLM agents, web platforms, desktop apps</div>
   <div class="contact">
     <span>Tbilisi, Georgia</span>
     <span>+995 595 206 203</span>
@@ -74,23 +81,30 @@
     <span><a href="https://github.com/5w7Tch">github.com/5w7Tch</a></span>
     <span><a href="https://nika-urchadze.vercel.app">nika-urchadze.vercel.app</a></span>
   </div>
-  <p class="summary">AI and full-stack engineer who ships production systems end to end: primary engineer on Sophia, Edumentors’ LLM support agent, architect of its lesson-transcription pipeline, and solo builder of three launched macOS products, from native Swift through licensing and payments.</p>
+  <p class="summary">AI and full-stack engineer who ships production systems end to end. Primary engineer on Sophia, Edumentors’ LLM support agent that resolves live customer chats with 50+ tools and sends approved replies on its own; architect of the platform’s lesson transcription pipeline; builder of features across its Node.js backend and Vue apps. Has launched three desktop products solo, from native code through licensing, payments and LLM features.</p>
 </header>
 
 <h2>Experience</h2>
 
 <div class="entry">
   <div class="entry-head">
-    <div class="entry-title">Edumentors <span class="role">— Full-Stack / AI Engineer</span></div>
+    <div class="entry-title">Edumentors <span class="role">— AI / Full-Stack Engineer</span></div>
     <div class="dates">Jan 2026 – Present</div>
   </div>
-  <div class="sub">UK online tutoring marketplace · TypeScript, Node/Express, MongoDB, Redis, AWS, LangChain, OpenAI / Anthropic / Gemini, Nuxt/Vue</div>
+  <div class="sub">UK online tutoring marketplace · TypeScript, Node.js, MongoDB, Redis, AWS, Vue/Nuxt, LangChain, OpenAI/Anthropic/Gemini/xAI</div>
+
+  <h3>AI engineering</h3>
   <ul>
-    <li><b>Sophia, production AI support agent:</b> primary engineer (~700 commits, 89% of all commits). Rebuilt it as one agentic loop over 70 problem types and 50+ role-scoped tools that perform real bookings, reschedules, cancellations and refunds; hybrid keyword + embedding retrieval puts the right problem in the top 5 for 81.6% of messages.</li>
-    <li><b>Autonomous sending:</b> built the judge that lets Sophia skip human review (nearest-neighbour vote over 7,274 past drafts + unanimous 5&#8209;vote LLM check): 24.6% of replies approved at 97.3% acceptance, 2,000+ auto-sent in the first month; guarded by a 225-case eval suite and nightly agents that turn support corrections into eval-verified merge requests.</li>
-    <li><b>Lesson transcription &amp; AI review (architect):</b> Puppeteer bot fleet that joins Google Meet lessons, with a predictive EC2 autoscaler (60 concurrent sessions in-call in 43 s, 0 failures; join time 84 s → 10 s). LLM summaries, engagement scores and compliance flags; a single-call redesign cut tokens 7× and latency 6×. Enabled for ~24,500 sessions.</li>
-    <li><b>Messaging:</b> shipped the Sophia → Sales hand-off across 4 codebases (shadow-mode rollout, SQS fan-out, race-safe claims) and turned the in-app WhatsApp gateway into a standalone multi-number service (leader lease, durable outbox, signed webhooks, 79 tests) on AWS via Terraform and GitLab CI.</li>
-    <li><b>Quality &amp; platform:</b> 330+ API tests over 83 payment, booking and referral endpoints, pinning 80+ real bugs incl. double payments; Vite 2 → 7 migration (build 24 s → 15 s); Sophia analytics; AI voice calls (ElevenLabs, LiveKit, Deepgram).</li>
+    <li><b>Sophia, production AI support agent:</b> primary engineer (800+ commits, 88% of all commits). Rebuilt it as one agentic loop over 70 problem types and 50+ role-scoped tools that perform real bookings, reschedules, cancellations and refunds; hybrid keyword + embedding retrieval puts the right problem in the top 5 for 81.6% of messages.</li>
+    <li><b>Success rate:</b> Sophia correctly handles 87% of the traffic that flows through support chats; the support team resolves the rest, and Sophia’s automated improvement system learns from those corrections, raising the success rate week by week.</li>
+    <li><b>Lesson transcription &amp; AI review (architect):</b> Puppeteer bot fleet that joins Google Meet lessons, with a predictive EC2 autoscaler (60 concurrent sessions in-call in 43 s, 0 failures; join time cut from ~84 s to ~10 s). LLM summaries, engagement scores and compliance flags; a single-call redesign cut tokens 7× and latency 6×. Enabled for ~24,500 sessions.</li>
+  </ul>
+
+  <h3>Full-stack &amp; platform</h3>
+  <ul>
+    <li><b>Sales hand-off and WhatsApp platform:</b> end-to-end hand-off of customers from Sophia to the Sales team on WhatsApp, spanning the AI backend, main API, admin app and a standalone multi-number WhatsApp service deployed on AWS (Terraform, GitLab CI); rolled out in shadow mode, with race-safe claims so no customer is answered twice.</li>
+    <li><b>Support and admin platform:</b> the tools the support team works in, built in Nuxt/Vue on the Node API: Sophia’s review and approval workflow with live drafts, analytics dashboards (time saved, weekly trends, audits), the lesson-transcript viewer, and a tutor-onboarding support chat across the admin and tutor apps.</li>
+    <li><b>Payments quality:</b> API test framework over 83 payment, booking and referral endpoints (330+ tests) that uncovered 40+ bugs, including double refunds, Stripe charges without idempotency keys and referral records anyone could delete.</li>
   </ul>
 </div>
 
@@ -99,9 +113,11 @@
     <div class="entry-title">Stimuli Digital <span class="role">— Software Engineer</span></div>
     <div class="dates">Mar 2025 – Jan 2026</div>
   </div>
+  <div class="sub">Cold-email outreach agency · Python, FastAPI, ARQ, React, PostgreSQL, LLM APIs, BigQuery</div>
   <ul>
-    <li>Built production Python backends (FastAPI, ARQ) for cold-email agencies running thousands of mailboxes: a private SaaS for buying and health-tracking email accounts and domains, plus LLM-driven lead qualification.</li>
-    <li>Automated agency operations with Airtable, BigQuery, n8n, Make and Zapier for clients such as C17 and Hypergen.</li>
+    <li><b>Email infrastructure SaaS:</b> built a privately hosted platform for buying, monitoring and health-tracking thousands of email accounts and domains, with automated redistribution, recovery and parallel tagging (hours of manual work cut to seconds) that keep outreach campaigns deliverable.</li>
+    <li><b>AI lead generation:</b> LLM pipelines for lead discovery, enrichment and qualification, fed by scrapers and Smartlead/Instantly campaign-sync workers; replaced paid data tools and saved the company thousands.</li>
+    <li><b>Client platforms:</b> portals and KPI dashboards for agencies such as C17, Sales Automation Systems and Hypergen, with onboarding and reporting automated across BigQuery, Looker Studio, Airtable, n8n and Make; contributed to OutFound, Stimuli’s outreach SaaS.</li>
   </ul>
 </div>
 
@@ -109,21 +125,22 @@
 
 <div class="entry">
   <div class="entry-head">
-    <div class="entry-title">RunWatch <span class="role">— paid macOS app for Claude Code users</span> · <a class="link" href="https://runwatch.site">runwatch.site</a></div>
-    <div class="dates">Oct 2026</div>
+    <div class="entry-title">MeetMaster <span class="role">— free Google Meet notetaker with AI, Mac and Windows</span> · <a class="link" href="https://meetmaster.site">meetmaster.site</a></div>
+    <div class="dates">Oct – Nov 2026</div>
   </div>
   <ul>
-    <li>Shows every Claude Code session as a live status dot and jumps to it in one click. Built and launched in 5 days: Swift 6 / SwiftUI (94 tests), Cloudflare Worker licensing (Whop, offline Ed25519 device-bound licenses, free trial), forced updates.</li>
+    <li>Follows you into Meet calls (mic-in-use detection, browser-tab reading, calendar sync) with a hidden Playwright-driven Chrome and turns live captions into speaker-attributed notes; no audio recorded.</li>
+    <li>“Ask your meetings” and recurring AI tasks (recaps, decisions, to-dos) on Claude, ChatGPT, Gemini, Grok or Muse with the user’s own key. Electron app with native Swift (CoreAudio, EventKit) and C# (UI Automation) helpers and signed auto-updates.</li>
   </ul>
 </div>
 
 <div class="entry">
   <div class="entry-head">
-    <div class="entry-title">MeetMaster <span class="role">— free Google Meet notetaker for Mac</span> · <a class="link" href="https://meetmaster.site">meetmaster.site</a></div>
+    <div class="entry-title">RunWatch <span class="role">— paid macOS app for Claude Code users</span> · <a class="link" href="https://runwatch.site">runwatch.site</a></div>
     <div class="dates">Oct 2026</div>
   </div>
   <ul>
-    <li>Follows you into Meet calls (CoreAudio mic detection, AppleScript, EventKit) with a hidden Playwright-driven Chrome and turns live captions into speaker-attributed notes; no audio, no server. Electron + Swift helper, 48 tests, signed auto-updates.</li>
+    <li>Shows every Claude Code session as a live status dot and jumps to it in one click, reading Claude Code’s hook events and transcripts. Built and launched in 5 days: Swift 6 / SwiftUI (94 tests), Cloudflare Worker licensing (Whop, offline Ed25519 device-bound licenses, free trial), forced updates.</li>
   </ul>
 </div>
 
@@ -133,7 +150,17 @@
     <div class="dates">2026</div>
   </div>
   <ul>
-    <li>Swift 6 menu-bar agent that locks every display when an unknown face is at the Mac (Vision → Core ML embeddings, blink liveness); Windows (.NET / WPF) and Linux (Avalonia) ports; Cloudflare Worker licensing with Whop and USDC payments.</li>
+    <li>Swift 6 menu-bar agent that locks every display when an unknown face is at the Mac (Vision alignment, Core ML face embeddings, blink liveness); Windows (.NET / WPF, ONNX Runtime) and Linux (Avalonia) ports; Cloudflare Worker licensing with Whop and USDC payments.</li>
+  </ul>
+</div>
+
+<div class="entry">
+  <div class="entry-head">
+    <div class="entry-title">Life Tracker <span class="role">— full-stack productivity platform, web and mobile</span> · <a class="link" href="https://tracker-six-gules.vercel.app">tracker-six-gules.vercel.app</a></div>
+    <div class="dates">2026</div>
+  </div>
+  <ul>
+    <li>Next.js 16 / React 19 web app, Expo / React Native mobile app and a FastAPI + Supabase (Postgres) backend; zero-knowledge client-side encryption (PBKDF2 + AES-GCM) for finance data, a conflict-resolving sync engine, JWT auth, rate limiting and row-level security.</li>
   </ul>
 </div>
 
@@ -145,17 +172,19 @@
     <div class="dates">expected 2027</div>
   </div>
   <ul>
-    <li>ICPC International Olympiad Quarterfinalist. Teaching Assistant for OOP in Java and Design Patterns (Mar 2025 – Jan 2026).</li>
+    <li>ICPC International Olympiad Quarterfinalist.</li>
+    <li>Machine learning: CycleGAN implemented from scratch in PyTorch for Kaggle’s Monet style-transfer competition; regression modelling with scikit-learn.</li>
+    <li>Teaching Assistant for OOP in Java and Design Patterns (Mar 2025 – Jan 2026).</li>
   </ul>
 </div>
 
 <h2>Skills</h2>
 
 <dl class="skills">
-  <dt>Languages</dt><dd>TypeScript / JavaScript, Python, Swift, Java, C#, C/C++, SQL</dd>
-  <dt>AI / LLM</dt><dd>agentic tool-calling systems, LangChain, RAG and embeddings, LLM evals (LLM-as-judge, Braintrust, LangSmith), OpenAI / Anthropic / Gemini / xAI APIs, Core ML, PyTorch</dd>
-  <dt>Backend &amp; infra</dt><dd>Node.js / Express, FastAPI, MongoDB, PostgreSQL / Supabase, Redis, AWS (EC2, S3, SQS), Terraform, Docker, Cloudflare Workers, GitLab CI / GitHub Actions, Stripe / Whop</dd>
-  <dt>Apps &amp; frontend</dt><dd>SwiftUI / AppKit, Electron, React, Next.js, Vue / Nuxt, React Native / Expo, three.js, Puppeteer / Playwright</dd>
+  <dt>Languages</dt><dd>TypeScript/JavaScript, Python, Swift, C#, Java, C/C++, SQL</dd>
+  <dt>AI / LLM</dt><dd>agentic tool-calling systems, LangChain, RAG and hybrid retrieval, LLM evals (LLM-as-judge, pass@k), voice agents (LiveKit), OpenAI/Anthropic/Gemini/xAI APIs, Core ML, ONNX, PyTorch</dd>
+  <dt>Backend &amp; infra</dt><dd>Node.js/Express, FastAPI, MongoDB, PostgreSQL/Supabase, Redis, AWS (EC2, S3, SQS), Terraform, Docker, Cloudflare Workers, GitLab CI/GitHub Actions, Stripe/Whop</dd>
+  <dt>Frontend &amp; apps</dt><dd>Vue/Nuxt, React, Next.js, React Native/Expo, SwiftUI/AppKit, Electron, .NET/WPF, Playwright/Puppeteer</dd>
   <dt>Spoken</dt><dd>English, German, Georgian</dd>
 </dl>
 

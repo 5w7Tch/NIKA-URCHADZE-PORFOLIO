@@ -23,5 +23,8 @@ execFileSync(CHROME, [
   source.href,
 ], { stdio: ['ignore', 'ignore', 'ignore'] });
 
-const pages = readFileSync(out, 'latin1').match(/\/Type\s*\/Page\b/g).length;
+const pdf = readFileSync(out, 'latin1');
+// A font that failed to load falls back to a system font without any error.
+if (!/\/FontName\s*\/[A-Z]{6}\+Inter/.test(pdf)) throw new Error(`${out}: Inter is not embedded — did the font CDN load?`);
+const pages = pdf.match(/\/Type\s*\/Page\b/g).length;
 console.log(`wrote ${out} (${pages} page${pages === 1 ? '' : 's'})`);
